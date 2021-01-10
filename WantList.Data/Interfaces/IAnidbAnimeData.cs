@@ -6,8 +6,9 @@ namespace WantList.Data.Interfaces
     public interface IAnidbAnimeData
     {
         IEnumerable<AnidbAnime> GetAll();
-        AnidbAnime Add(Anime AnidbAnime);
-        AnidbAnime Update(Anime AnidbAnime);
+        AnidbAnime GetById(int id);
+        AnidbAnime Add(AnidbAnime anidbAnime);
+        AnidbAnime Update(AnidbAnime anidbAnime);
         AnidbAnime Delete(int id);
         int Commit();
     }
