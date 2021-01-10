@@ -11,5 +11,11 @@ namespace WantList.Data
 
         public DbSet<Anime> Animes { get; set; }
         public DbSet<AnidbAnime> AnidbAnimes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Anime>().HasIndex(a => a.AnidbId).IsUnique();
+        }
     }
 }
