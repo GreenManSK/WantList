@@ -25,6 +25,11 @@ namespace WantList.Data.Sql
             return _db.Animes.Find(id);
         }
 
+        public Anime GetByAnidbId(int anidbId)
+        {
+            return (from a in _db.Animes where a.AnidbId.Equals(anidbId) select a).FirstOrDefault();
+        }
+
         public Anime Add(Anime anime)
         {
             _db.Add(anime);

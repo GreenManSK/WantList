@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,8 @@ namespace WantList
             
             services.AddScoped<IAnidbAnimeData, SqlAnidbAnimeData>();
             services.AddScoped<IAnimeData, SqlAnimeData>();
+            
+            services.AddAutoMapper(typeof(Startup));
             
             services.AddControllers();
         }

@@ -7,6 +7,7 @@ namespace WantList.Data.Interfaces
     {
         IEnumerable<Anime> GetAll();
         Anime GetById(int id);
+        Anime GetByAnidbId(int anidbId);
         Anime Add(Anime anime);
         Anime Update(Anime anime);
         Anime Delete(int id);
