@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WantList.Data;
+using WantList.Data.Interfaces;
+using WantList.Data.Sql;
 
 namespace WantList
 {
@@ -32,6 +34,10 @@ namespace WantList
 
                 options.UseMySQL(Configuration.GetConnectionString("WantlistDb"));
             });
+            
+            services.AddScoped<IAnidbAnimeData, SqlAnidbAnimeData>();
+            services.AddScoped<IAnimeData, SqlAnimeData>();
+            
             services.AddControllers();
         }
 
