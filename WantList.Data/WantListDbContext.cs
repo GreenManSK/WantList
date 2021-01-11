@@ -11,6 +11,7 @@ namespace WantList.Data
 
         public DbSet<Anime> Animes { get; set; }
         public DbSet<AnidbAnime> AnidbAnimes { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
