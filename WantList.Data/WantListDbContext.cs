@@ -10,6 +10,7 @@ namespace WantList.Data
         }
 
         public DbSet<Anime> Animes { get; set; }
+        public DbSet<Manga> Mangas { get; set; }
         public DbSet<AnidbAnime> AnidbAnimes { get; set; }
         public DbSet<Settings> Settings { get; set; }
 
@@ -17,6 +18,7 @@ namespace WantList.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Anime>().HasIndex(a => a.AnidbId).IsUnique();
+            modelBuilder.Entity<Manga>().HasIndex(m => m.MangaUpdatesId).IsUnique();
         }
     }
 }
