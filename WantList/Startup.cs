@@ -41,6 +41,7 @@ namespace WantList
             
             services.AddScoped<IAnidbAnimeData, SqlAnidbAnimeData>();
             services.AddScoped<IAnimeData, SqlAnimeData>();
+            services.AddScoped<IMangaData, SqlMangaData>();
             services.AddScoped<ISettingsData, SqlSettingsData>();
             services.AddScoped<AnidbSync>();
             
