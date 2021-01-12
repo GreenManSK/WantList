@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +10,6 @@ using WantList.Anidb;
 using WantList.Data;
 using WantList.Data.Interfaces;
 using WantList.Data.Sql;
-using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace WantList
 {
