@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WantList.Anidb\WantList.Anidb.csproj" />
     <ProjectReference Include="..\WantList.Data\WantList.Data.csproj" />
   </ItemGroup>
 

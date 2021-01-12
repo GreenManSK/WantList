@@ -6,5 +6,10 @@ namespace WantList.Core
     {
         public int Id { get; set; }
         public DateTime AnidbLastSync { get; set; }
+
+        public Settings(DateTime anidbLastSync)
+        {
+            AnidbLastSync = anidbLastSync;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using WantList.Core;
 using WantList.Data.Interfaces;
@@ -15,13 +16,21 @@ namespace WantList.Data.Sql
 
         public Settings Get()
         {
-            return _db.Settings.Find(1) ?? new Settings();
+            return _db.Settings.Find(1) ?? new Settings(DateTime.MinValue);
         }
 
         public Settings Update(Settings settings)
         {
-            var entity = _db.Settings.Attach(settings);
-            entity.State = EntityState.Modified;
+            if (settings.Id == 0)
+            {
+                _db.Add(settings);
+            }
+            else
+            {
+                var entity = _db.Settings.Attach(settings);
+                entity.State = EntityState.Modified;
+            }
+
             return settings;
         }
 
