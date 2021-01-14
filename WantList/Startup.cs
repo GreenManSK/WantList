@@ -36,20 +36,21 @@ namespace WantList
 
                 options.UseMySQL(Configuration.GetConnectionString("WantlistDb"));
             });
-            
+
             services.AddScoped<IAnidbAnimeData, SqlAnidbAnimeData>();
             services.AddScoped<IAnimeData, SqlAnimeData>();
             services.AddScoped<IMangaData, SqlMangaData>();
             services.AddScoped<ISettingsData, SqlSettingsData>();
             services.AddScoped<AnidbSync>();
-            
+            services.AddScoped<AnidbService>();
+
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime, AnidbSync anidbSync)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AnidbSync anidbSync)
         {
             if (env.IsDevelopment())
             {
@@ -63,7 +64,7 @@ namespace WantList
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            
+
             anidbSync.OnStartup();
         }
     }
