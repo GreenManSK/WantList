@@ -8,7 +8,6 @@ namespace WantList.Core
         public string Name { get; set; }
         public int AnidbId { get; set; }
         public DateTime AddedDateTime { get; set; }
-        public string Image { get; set; }
         public AnimeType Type { get; set; }
         public int WantRank { get; set; }
         public bool Redownload { get; set; }

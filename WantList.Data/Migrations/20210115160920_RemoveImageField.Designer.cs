@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WantList.Data;
 
 namespace WantList.Data.Migrations
 {
     [DbContext(typeof(WantListDbContext))]
-    partial class WantListDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210115160920_RemoveImageField")]
+    partial class RemoveImageField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

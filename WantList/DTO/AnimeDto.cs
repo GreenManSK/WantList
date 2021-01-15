@@ -10,7 +10,6 @@ namespace WantList.DTO
         [Required] public string Name { get; set; }
         [Required] public int AnidbId { get; set; }
         public DateTime AddedDateTime { get; set; }
-        public string Image { get; set; }
         [Required] public AnimeType Type { get; set; }
         [Required] public int WantRank { get; set; }
         public bool Redownload { get; set; }
