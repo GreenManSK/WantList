@@ -6,7 +6,7 @@ namespace WantList.DTO
     public class MangaDto
     {
         public int Id { get; set; }
-        [Required] public string Name { get; set; }
+        public string Name { get; set; }
         [Required] public int MangaUpdatesId { get; set; }
         public DateTime AddedDateTime { get; set; }
         public string Image { get; set; }

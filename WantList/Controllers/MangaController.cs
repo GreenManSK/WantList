@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using WantList.Core;
 using WantList.Data.Interfaces;
 using WantList.DTO;
+using WantList.MangaUpdates;
 
 namespace WantList.Controllers
 {
@@ -14,14 +15,16 @@ namespace WantList.Controllers
     public class MangaController : ControllerBase
     {
         private readonly ILogger<MangaController> _logger;
-        private IMangaData _mangaData;
+        private readonly IMangaData _mangaData;
         private readonly IMapper _mapper;
+        private readonly IMangaUpdatesService _mangaUpdatesService;
 
-        public MangaController(ILogger<MangaController> logger, IMangaData mangaData, IMapper mapper)
+        public MangaController(ILogger<MangaController> logger, IMangaData mangaData, IMapper mapper, IMangaUpdatesService mangaUpdatesService)
         {
             _logger = logger;
             _mangaData = mangaData;
             _mapper = mapper;
+            _mangaUpdatesService = mangaUpdatesService;
         }
 
         [HttpGet]
@@ -69,6 +72,7 @@ namespace WantList.Controllers
 
             try
             {
+                UpdateMangaData(mangaDto);
                 var manga = _mapper.Map<Manga>(mangaDto);
                 if (_mangaData.GetByMangaUpdatesId(manga.MangaUpdatesId) != null)
                 {
@@ -101,6 +105,12 @@ namespace WantList.Controllers
                     return NotFound($"Could not find manga with id {id}");
                 }
 
+                if (oldManga.MangaUpdatesId != mangaDto.MangaUpdatesId)
+                {
+                    _mangaUpdatesService.DeleteImage(oldManga.MangaUpdatesId);
+                    UpdateMangaData(mangaDto);
+                }
+
                 _mapper.Map(mangaDto, oldManga);
                 _mangaData.Commit();
                 return _mapper.Map<MangaDto>(oldManga);
@@ -119,6 +129,7 @@ namespace WantList.Controllers
             {
                 var manga = _mangaData.Delete(id);
                 _mangaData.Commit();
+                _mangaUpdatesService.DeleteImage(manga.MangaUpdatesId);
                 return _mapper.Map<MangaDto>(manga);
             }
             catch (Exception e)
@@ -126,6 +137,20 @@ namespace WantList.Controllers
                 _logger.LogError(e, "Error while deleting manga with id {id}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+
+        private MangaDto UpdateMangaData(MangaDto mangaDto)
+        {
+            var data =_mangaUpdatesService.GetData(mangaDto.MangaUpdatesId);
+            if (string.IsNullOrWhiteSpace(mangaDto.Name))
+            {
+                mangaDto.Name = data.Title;
+            }
+
+            mangaDto.MissingVolumes ??= data.Volumes.ToString();
+            // TODO: mangaDto.Completed ??= data.Completed;
+            _mangaUpdatesService.DownloadImage(data);
+            return mangaDto;
         }
     }
 }
