@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WantList.Anidb;
 using WantList.Core;
 using WantList.Data.Interfaces;
 using WantList.DTO;
@@ -15,14 +16,16 @@ namespace WantList.Controllers
     public class AnimeController : ControllerBase
     {
         private readonly ILogger<AnimeController> _logger;
-        private IAnimeData _animeData;
+        private readonly IAnimeData _animeData;
         private readonly IMapper _mapper;
+        private readonly AnidbService _anidbService;
 
-        public AnimeController(ILogger<AnimeController> logger, IAnimeData animeData, IMapper mapper)
+        public AnimeController(ILogger<AnimeController> logger, IAnimeData animeData, IMapper mapper, AnidbService anidbService)
         {
             _logger = logger;
             _animeData = animeData;
             _mapper = mapper;
+            _anidbService = anidbService;
         }
 
         [HttpGet]
@@ -76,6 +79,7 @@ namespace WantList.Controllers
                     return BadRequest("Anime already exists");
                 }
                 _animeData.Add(anime);
+                _anidbService.DownloadImage(anime.AnidbId);
                 _animeData.Commit();
                 return _mapper.Map<AnimeDto>(anime);
             }
@@ -102,6 +106,12 @@ namespace WantList.Controllers
                     return NotFound($"Could not find anime with id {id}");
                 }
 
+                if (oldAnime.AnidbId != animeDto.AnidbId)
+                {
+                    _anidbService.DeleteImage(oldAnime.AnidbId);
+                    _anidbService.DownloadImage(animeDto.AnidbId);
+                }
+                
                 _mapper.Map(animeDto, oldAnime);
                 _animeData.Commit();
                 return _mapper.Map<AnimeDto>(oldAnime);
@@ -120,6 +130,7 @@ namespace WantList.Controllers
             {
                 var anime = _animeData.Delete(id);
                 _animeData.Commit();
+                _anidbService.DeleteImage(anime.AnidbId);
                 return _mapper.Map<AnimeDto>(anime);
             }
             catch (Exception e)
