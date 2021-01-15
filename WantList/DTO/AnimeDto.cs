@@ -10,7 +10,9 @@ namespace WantList.DTO
         [Required] public string Name { get; set; }
         [Required] public int AnidbId { get; set; }
         public DateTime AddedDateTime { get; set; }
-        [Required] public AnimeType Type { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public AnimeType Type { get; set; }
+        public int EpisodeCount { get; set; }
         [Required] public int WantRank { get; set; }
         public bool Redownload { get; set; }
         public bool BluRay { get; set; }

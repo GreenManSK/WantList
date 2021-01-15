@@ -27,6 +27,7 @@ namespace WantList.Controllers
             _animeData = animeData;
             _mapper = mapper;
             _anidbService = anidbService;
+            _anidbService.GetData(5);
         }
 
         [HttpGet]
@@ -80,6 +81,7 @@ namespace WantList.Controllers
 
             try
             {
+                UpdateAnimeDto(animeDto);
                 var anime = _mapper.Map<Anime>(animeDto);
                 anime.AddedDateTime = DateTime.Now;
                 if (_animeData.GetByAnidbId(anime.AnidbId) != null)
@@ -87,7 +89,6 @@ namespace WantList.Controllers
                     return BadRequest("Anime already exists");
                 }
                 _animeData.Add(anime);
-                _anidbService.DownloadImage(anime.AnidbId);
                 _animeData.Commit();
                 return _mapper.Map<AnimeDto>(anime);
             }
@@ -117,7 +118,7 @@ namespace WantList.Controllers
                 if (oldAnime.AnidbId != animeDto.AnidbId)
                 {
                     _anidbService.DeleteImage(oldAnime.AnidbId);
-                    _anidbService.DownloadImage(animeDto.AnidbId);
+                    UpdateAnimeDto(animeDto);
                 }
                 
                 _mapper.Map(animeDto, oldAnime);
@@ -146,6 +147,26 @@ namespace WantList.Controllers
                 _logger.LogError(e, "Error while deleting anime with id {id}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+
+        private void UpdateAnimeDto(AnimeDto animeDto)
+        {
+            var data = _anidbService.GetData(animeDto.Id);
+            if (animeDto.EpisodeCount == 0)
+            {
+                animeDto.EpisodeCount = data.EpisodeCount;
+            }
+
+            if (animeDto.Type == AnimeType.Series && data.Type != null)
+            {
+                animeDto.Type = data.Type.Value;
+            }
+
+            if (data.ReleaseDate != null)
+            {
+                animeDto.ReleaseDate = data.ReleaseDate.Value;
+            }
+            _anidbService.DownloadImage(data);
         }
     }
 }
