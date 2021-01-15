@@ -1,9 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WantList.Anidb;
@@ -16,6 +18,8 @@ namespace WantList
 {
     public class Startup
     {
+        public const string StaticImagesPath = "/static/images";
+        
         public IConfiguration Configuration { get; }
         private IWebHostEnvironment _environment;
 
@@ -52,12 +56,18 @@ namespace WantList
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AnidbSync anidbSync, IMangaUpdatesService mangaUpdatesService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AnidbSync anidbSync)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Configuration.GetValue<string>("ImagesPath")),
+                RequestPath = StaticImagesPath
+            });
 
             app.UseHttpsRedirection();
 
@@ -65,8 +75,16 @@ namespace WantList
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            mangaUpdatesService.GetData(15);
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/api", async context =>
+                {
+                    context.Response.ContentType = "text/*; charset=utf-8";
+                    await context.Response.WriteAsync("がんばルビィ");
+                });
+                endpoints.MapControllers();
+            });
+
             anidbSync.OnStartup();
         }
     }

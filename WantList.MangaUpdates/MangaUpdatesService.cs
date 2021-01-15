@@ -25,9 +25,14 @@ namespace WantList.MangaUpdates
             _imagesPath = configuration.GetValue<string>("ImagesPath");
         }
 
+        public string GetImageName(int mangaUpdatesId)
+        {
+            return $"m{mangaUpdatesId}.jpg";
+        }
+
         public string GetImagePath(int mangaUpdatesId)
         {
-            return Path.Combine(_imagesPath, $"m{mangaUpdatesId}.jpg");
+            return Path.Combine(_imagesPath, GetImageName(mangaUpdatesId));
         }
 
         public void DownloadImage(Manga manga)

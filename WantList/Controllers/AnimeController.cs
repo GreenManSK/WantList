@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -61,6 +62,12 @@ namespace WantList.Controllers
                 _logger.LogError(e, "Error while getting anime with id {id}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+        
+        [HttpGet("file/{anidbId}")]
+        public ActionResult GetImage(int anidbId)
+        {
+            return Redirect(Path.Combine(Startup.StaticImagesPath, _anidbService.GetImageName(anidbId)));
         }
 
         [HttpPost]

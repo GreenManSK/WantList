@@ -21,9 +21,14 @@ namespace WantList.Anidb
             _imagesPath = configuration.GetValue<string>("ImagesPath");
         }
 
+        public string GetImageName(int anidbId)
+        {
+            return $"a{anidbId}.jpg";
+        }
+
         public string GetImagePath(int anidbId)
         {
-            return Path.Combine(_imagesPath, $"a{anidbId}.jpg");
+            return Path.Combine(_imagesPath, GetImageName(anidbId));
         }
 
         public void DownloadImage(int anidbId)
@@ -34,6 +39,7 @@ namespace WantList.Anidb
                 _logger.LogError($"Image for anidb {anidbId} already exists in {imagePath}");
                 return;
             }
+
             var html = GetAnimeHtml(anidbId).Result;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);

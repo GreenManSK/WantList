@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,12 @@ namespace WantList.Controllers
                 _logger.LogError(e, "Error while getting manga with id {id}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+        
+        [HttpGet("file/{mangaUpdatesId}")]
+        public ActionResult GetImage(int mangaUpdatesId)
+        {
+            return Redirect(Path.Combine(Startup.StaticImagesPath, _mangaUpdatesService.GetImageName(mangaUpdatesId)));
         }
 
         [HttpPost]
