@@ -74,6 +74,7 @@ namespace WantList.Controllers
             try
             {
                 var anime = _mapper.Map<Anime>(animeDto);
+                anime.AddedDateTime = DateTime.Now;
                 if (_animeData.GetByAnidbId(anime.AnidbId) != null)
                 {
                     return BadRequest("Anime already exists");

@@ -75,6 +75,7 @@ namespace WantList.Controllers
             {
                 UpdateMangaData(mangaDto);
                 var manga = _mapper.Map<Manga>(mangaDto);
+                manga.AddedDateTime = DateTime.Now;
                 if (_mangaData.GetByMangaUpdatesId(manga.MangaUpdatesId) != null)
                 {
                     return BadRequest("Manga already exists");
