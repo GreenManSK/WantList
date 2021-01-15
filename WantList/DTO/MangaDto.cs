@@ -12,5 +12,6 @@ namespace WantList.DTO
         public string Image { get; set; }
         [Required] public int WantRank { get; set; }
         public string MissingVolumes { get; set; }
+        public bool Completed { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace WantList.Core
         public string Image { get; set; }
         public int WantRank { get; set; }
         public string MissingVolumes { get; set; }
+        public bool Completed { get; set; }
     }
 }

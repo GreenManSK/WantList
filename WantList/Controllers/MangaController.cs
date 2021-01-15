@@ -19,7 +19,8 @@ namespace WantList.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaUpdatesService _mangaUpdatesService;
 
-        public MangaController(ILogger<MangaController> logger, IMangaData mangaData, IMapper mapper, IMangaUpdatesService mangaUpdatesService)
+        public MangaController(ILogger<MangaController> logger, IMangaData mangaData, IMapper mapper,
+            IMangaUpdatesService mangaUpdatesService)
         {
             _logger = logger;
             _mangaData = mangaData;
@@ -78,6 +79,7 @@ namespace WantList.Controllers
                 {
                     return BadRequest("Manga already exists");
                 }
+
                 _mangaData.Add(manga);
                 _mangaData.Commit();
                 return _mapper.Map<MangaDto>(manga);
@@ -139,18 +141,17 @@ namespace WantList.Controllers
             }
         }
 
-        private MangaDto UpdateMangaData(MangaDto mangaDto)
+        private void UpdateMangaData(MangaDto mangaDto)
         {
-            var data =_mangaUpdatesService.GetData(mangaDto.MangaUpdatesId);
+            var data = _mangaUpdatesService.GetData(mangaDto.MangaUpdatesId);
             if (string.IsNullOrWhiteSpace(mangaDto.Name))
             {
                 mangaDto.Name = data.Title;
             }
 
             mangaDto.MissingVolumes ??= data.Volumes.ToString();
-            // TODO: mangaDto.Completed ??= data.Completed;
+            mangaDto.Completed = data.Completed;
             _mangaUpdatesService.DownloadImage(data);
-            return mangaDto;
         }
     }
 }
