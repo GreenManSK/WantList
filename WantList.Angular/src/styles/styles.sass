@@ -1,1 +1,152 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '../../node_modules/bootstrap/scss/bootstrap'
+@import 'variables'
+@import 'responsive'
+
+html
+  font-size: 62.5%
+
+body
+  font-family: $font
+  background-color: $background
+  color: $text-color
+  padding-top: 5rem
+
+.container
+  max-width: 1000px
+
+h1
+  text-align: center
+  font-size: 6rem
+  font-weight: bold
+  a
+    color: $color2
+    text-shadow: $shadow
+    &:hover, &:focus, &:active
+      color: $color1
+      text-decoration: none
+
+nav
+  ul
+    list-style: none
+    margin: 2.5rem 0 0
+    padding: 0
+    text-align: center
+    li
+      display: inline-block
+      font-size: 2.25rem
+      margin: 0 .5rem
+      a
+        padding: .5rem 2rem
+        border-radius: $border-radius
+        color: $color2
+        &:hover, &:focus
+          background: $color1
+          color: $background
+          text-decoration: none
+        &.active, &:active
+          background: $color2
+          color: $background
+
+table.table
+  margin-top: 2.5rem
+  font-size: 1.7rem
+  border-radius: $border-radius
+  border-collapse: collapse
+  border: none
+  td, th
+    text-align: center
+    &.left
+      text-align: left
+    &:first-child
+      border-left: none
+    &:last-child
+      border-right: none
+
+  tr
+    th
+      border-top: 0
+      background: $color3
+      color: #fff
+      border-right: 1px solid $color4
+      cursor: pointer
+      font-weight: normal
+      &:hover, &focus, &active
+        background: $color4
+      &.image, &.icons
+        cursor: initial
+        background: $color3 !important
+      fa-icon
+        float: right
+        &.hover
+          display: none
+      .active
+        font-weight: bold
+      &:hover, &:focus, &:active
+        fa-icon
+          display: none
+          &.hover
+            display: block
+    th:first-child
+      border-top-left-radius: $border-radius
+    th:last-child
+      border-top-right-radius: $border-radius
+
+  tr
+    td
+      vertical-align: middle
+      p
+        padding: .25rem 0 0 1rem
+        font-size: 1.4rem
+        a
+          text-decoration: underline
+      a
+        color: $color2
+        &:hover, &:focus, &:active
+          color: $color1
+          text-decoration: underline
+    td.image
+      width: $table-image-size
+      height: $table-image-size
+      position: relative
+      overflow: hidden
+      img
+        width: 100%
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+    td.icons
+      white-space: nowrap
+      a
+        display: inline-block
+        margin: 0 .25rem
+
+.box
+  margin: 2.5rem 0
+  h2
+    color: #ffffff
+    background: $color3
+    border-top-left-radius: $border-radius
+    border-top-right-radius: $border-radius
+    padding: $box-padding
+    margin: 0
+
+  .content
+    padding: $box-padding
+    border-bottom-left-radius: $border-radius
+    border-bottom-right-radius: $border-radius
+    background: $box-background
+    font-size: 1.7rem
+
+  &.stats
+    .content
+      text-align: center
+      strong
+        font-weight: bold
+      span
+        display: inline-block
+        margin-right: 5rem
