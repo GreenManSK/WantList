@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IAnimeApi } from './services/api/ianime-api';
 import { MockAnimeApiService } from './services/api/mock/mock-anime-api.service';
+import { MockMangaApiService } from './services/api/mock/mock-manga-api.service';
+import { IMangaApi } from './services/api/imanga-api';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { MockAnimeApiService } from './services/api/mock/mock-anime-api.service'
     FontAwesomeModule
   ],
   providers: [
-    {provide: IAnimeApi, useClass: MockAnimeApiService}
+    {provide: IAnimeApi, useClass: MockAnimeApiService},
+    {provide: IMangaApi, useClass: MockMangaApiService}
   ],
   bootstrap: [AppComponent]
 })

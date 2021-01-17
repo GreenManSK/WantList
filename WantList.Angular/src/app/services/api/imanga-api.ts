@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 import { Manga } from '../../entities/manga';
 
-export interface IMangaApi {
-  getMangas(): Observable<Manga[]>;
-  getManga(id: number): Observable<Manga>;
-  add(manga: Manga): Observable<Manga>;
-  update(manga: Manga): Observable<Manga>;
-  delete(manga: Manga): Observable<Manga>;
-  getAnimeImage(manga: Manga): string;
+export abstract class IMangaApi {
+  abstract getMangas(): Observable<Manga[]>;
+  abstract getManga(id: number): Observable<Manga>;
+  abstract add(manga: Manga): Observable<Manga>;
+  abstract update(manga: Manga): Observable<Manga>;
+  abstract delete(manga: Manga): Observable<Manga>;
+  abstract getAnimeImage(manga: Manga): string;
 }
