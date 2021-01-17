@@ -1,7 +1,7 @@
 <a [title]="anime.name" href="#" (click)="toggle()">{{anime.name}} <fa-icon *ngIf="anime.redownload" [icon]="redownloadIcon"></fa-icon></a>
 <p *ngIf="isOpen">
   <a title="Show on Anidb" target="_blank" [href]="anidbAnimeService.getUrl(anime.anidbId)">Anidb</a><br>
-  <!--          TODO: Nyaa search-->
+  <a title="Search on nyaa" target="_blank" [href]="nyaaServiceService.getSearchUrl(anime)">[{{nyaaServiceService.generateSearchText(anime)}}]</a><br>
   <strong>Format: </strong> {{anime.bluRay ? 'BD' : ''}} {{qualityString(anime.quality)}}<br>
   {{anime.bluRayRelease}}
 </p>
