@@ -70,7 +70,7 @@ export class MockAnimeApiService implements IAnimeApi {
     return new Observable<Anime>(r => {
       const index = this.animes.indexOf(anime);
       if (index >= 0) {
-        this.animes.slice(index);
+        this.animes.slice(index, 1);
       }
       r.next(anime);
     });
