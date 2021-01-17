@@ -12,6 +12,7 @@ import { AnimeComponent } from './components/anime/anime.component';
 import { MangaComponent } from './components/manga/manga.component';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { AnimeTitleComponent } from './components/anime-title/anime-title.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AnimeTitleComponent } from './components/anime-title/anime-title.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [
     {provide: IAnimeApi, useClass: MockAnimeApiService},

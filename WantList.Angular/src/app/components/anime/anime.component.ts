@@ -4,6 +4,7 @@ import { Anime } from '../../entities/anime';
 import { Column } from '../list-table/Column';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AnimeType } from '../../entities/anime-type.enum';
+import { AnimeFilter } from '../../data/anime-filter';
 
 @Component({
   selector: 'app-anime',
@@ -26,13 +27,18 @@ export class AnimeComponent implements OnInit {
     new Column('episodeCount', 'Episodes', true),
     new Column('icons', '', false, 'icons'),
   ];
+  public filter: AnimeFilter;
+
+  private clearAnime: Anime[] = [];
 
   constructor( public animeService: AnimeService ) {
+    this.filter = new AnimeFilter();
   }
 
   ngOnInit(): void {
     this.animeService.getAnime().subscribe(anime => {
-      this.anime = anime;
+      this.clearAnime = anime;
+      this.refilter();
     });
   }
 
@@ -62,5 +68,9 @@ export class AnimeComponent implements OnInit {
       default:
         return 'Unknown';
     }
+  }
+
+  public refilter(): void {
+    this.anime = this.filter.filter(this.clearAnime);
   }
 }

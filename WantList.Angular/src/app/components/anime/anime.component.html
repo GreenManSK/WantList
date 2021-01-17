@@ -1,3 +1,37 @@
+<div class="box filter">
+  <div class="content no-title">
+    <form>
+      <div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="ageNew" name="ageNew" [(ngModel)]="filter.age.new" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="ageNew">New</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="ageRedownload" name="ageRedownload" [(ngModel)]="filter.age.redownload" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="ageRedownload">Redownload</label>
+        </div>
+      </div>
+      <div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="typeSeries" name="typeSeries" [(ngModel)]="filter.types.series" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="typeSeries">Series</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="typeMovie" name="typeMovie" [(ngModel)]="filter.types.movie" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="typeMovie">Movie</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="typeOva" name="typeOva" [(ngModel)]="filter.types.ova" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="typeOva">OVA</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="typeP18" name="typeP18" [(ngModel)]="filter.types.p18" (ngModelChange)="refilter()">
+          <label class="form-check-label" for="typeP18">+18</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <app-list-table
   [data]="anime"
   [columns]="columns"
