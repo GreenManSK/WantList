@@ -49,7 +49,7 @@ export class MangaServiceService {
     this.mangaApi.delete(manga).subscribe(updatedmanga => {
       if (updatedmanga != null) {
         const index = this.manga.findIndex(a => a.id === updatedmanga.id);
-        this.manga.slice(index, 1);
+        this.manga.splice(index, 1);
         this.updateManga();
       }
     });

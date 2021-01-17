@@ -47,7 +47,7 @@ export class MockMangaApiService implements IMangaApi {
     return new Observable<Manga>(r => {
       const index = this.mangas.indexOf(manga);
       if (index >= 0) {
-        this.mangas.slice(index, 1);
+        this.mangas.splice(index, 1);
       }
       r.next(manga);
     });

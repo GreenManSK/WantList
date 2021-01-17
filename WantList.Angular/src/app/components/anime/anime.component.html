@@ -1,1 +1,37 @@
-<p>anime works!</p>
+<app-list-table
+  [data]="anime"
+  [columns]="columns"
+  [defaultSortKey]="'wantRank'"
+  [defaultIsAsc]="false">
+  <ng-template let-data>
+    <ng-container [ngSwitch]="data.column.key">
+      <!--      TODO: Type -->
+      <ng-container *ngSwitchCase="'image'">
+        <img [alt]="data.item.name" [src]="animeService.getAnimeImage(data.item)">
+      </ng-container>
+      <ng-container *ngSwitchCase="'type'">
+        {{typeToString(data.item.type)}}
+      </ng-container>
+      <ng-container *ngSwitchCase="'addedDateTime'">
+        {{data.item[data.column.key] | date:'dd.MM.yyyy'}}
+      </ng-container>
+      <ng-container *ngSwitchCase="'releaseDate'">
+        {{data.item[data.column.key] | date:'dd.MM.yyyy'}}
+      </ng-container>
+      <ng-container *ngSwitchCase="'icons'">
+        <a href="#" (click)="edit(data.item)" title="Edit">
+          <fa-icon [icon]="editIcon"></fa-icon>
+        </a>
+        <a href="#" (click)="delete(data.item)" title="Delete">
+          <fa-icon [icon]="deleteIcon"></fa-icon>
+        </a>
+      </ng-container>
+      <ng-container *ngSwitchCase="'name'">
+        <app-anime-title [anime]="data.item"></app-anime-title>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        {{data.item[data.column.key]}}
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</app-list-table>

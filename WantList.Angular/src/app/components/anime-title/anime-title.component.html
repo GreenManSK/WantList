@@ -1,0 +1,7 @@
+<a [title]="anime.name" href="#" (click)="toggle()">{{anime.name}}</a>
+<p *ngIf="isOpen">
+  <a title="Show on Anidb" target="_blank" [href]="anidbAnimeService.getUrl(anime.anidbId)">Anidb</a><br>
+  <!--          TODO: Nyaa search-->
+  <strong>Format: </strong> {{anime.bluRay ? 'BD' : ''}} {{qualityString(anime.quality)}}<br>
+  {{anime.bluRayRelease}}
+</p>

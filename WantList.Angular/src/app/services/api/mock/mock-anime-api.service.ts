@@ -20,7 +20,7 @@ export class MockAnimeApiService implements IAnimeApi {
   randomAnime(): Anime {
     const anime = new Anime();
     anime.id = this.randomNum(1, 1000);
-    anime.name = this.randomNum(1000000, 99999999).toString();
+    anime.name = this.randomNum(1000000000, 99999999999).toString();
     anime.anidbId = this.randomNum(1, 1000);
     anime.addedDateTime = this.randomDate(new Date(1, 1, 1980), new Date());
     anime.releaseDate = this.randomDate(new Date(1, 1, 2015), new Date());
@@ -29,12 +29,13 @@ export class MockAnimeApiService implements IAnimeApi {
     anime.redownload = this.randomNum(1, 100) % 2 === 0;
     anime.bluRay = this.randomNum(1, 100) % 2 === 0;
     anime.quality = this.randomNum(0, 2);
+    anime.type = this.randomNum(0, 3);
     anime.bluRayRelease = this.randomNum(1000000, 99999999).toString();
     return anime;
   }
 
   randomNum( min: number, max: number ): number {
-    return Math.random() * (max - min) + min;
+    return Math.round(Math.random() * (max - min) + min);
   }
 
   randomDate( start: Date, end: Date ) {
@@ -70,7 +71,7 @@ export class MockAnimeApiService implements IAnimeApi {
     return new Observable<Anime>(r => {
       const index = this.animes.indexOf(anime);
       if (index >= 0) {
-        this.animes.slice(index, 1);
+        this.animes.splice(index, 1);
       }
       r.next(anime);
     });

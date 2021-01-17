@@ -49,7 +49,7 @@ export class AnimeService {
     this.animeApi.delete(anime).subscribe(updatedAnime => {
       if (updatedAnime != null) {
         const index = this.anime.findIndex(a => a.id === updatedAnime.id);
-        this.anime.slice(index, 1);
+        this.anime.splice(index, 1);
         this.updateAnime();
       }
     });
