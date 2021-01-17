@@ -2,66 +2,67 @@
   <h1 class="logo"><a title="WantList" routerLink="/">WantList</a></h1>
   <nav>
     <ul>
-      <li><a href="#" class="active">Anime</a></li>
-      <li><a href="#">Manga</a></li>
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Anime</a></li>
+      <li><a routerLink="/manga" routerLinkActive="active">Manga</a></li>
     </ul>
   </nav>
-  <table class="table table-striped table-hover table-bordered">
-    <thead>
-    <tr>
-      <th scope="col" class="image"></th>
-      <th scope="col" class="left active">
-        Title
-        <fa-icon [icon]="faSortAlphaUp"></fa-icon>
-        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon>
-      </th>
-      <th scope="col">Type
-        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon>
-      </th>
-      <th scope="col">Added
-        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>
-      <th scope="col">Released
-        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>
-      <th scope="col">Episodes
-        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>
-      <th scope="col" class="icons"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let n of [0,1,2,3,4,5,6]">
-      <td class="image">
-        <img src="assets/test.jpg"/>
-      </td>
-      <td class="left">
-        <a href="#">Magia Record: Mahou Shoujo Madoka Magica Gaiden</a>
-<!--        <p>-->
-<!--          <a href="#">Anidb</a><br>-->
-<!--          <a href="#">Nyaa: [Magia Record: Mahou Shoujo Madoka Magica Gaiden 720p BD]</a>-->
-<!--        </p>-->
-      </td>
-      <td>Series</td>
-      <td>16.10.2021</td>
-      <td>10.10.2020</td>
-      <td>164</td>
-      <td class="icons">
-        <a href="#">
-          <fa-icon [icon]="icon"></fa-icon>
-        </a>
-        <a href="#">
-          <fa-icon [icon]="icon"></fa-icon>
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="box stats">
-    <h2>Statistics</h2>
-    <div class="content">
-      <span><strong>All:</strong> 153</span>
-      <span><strong>Series:</strong> 81</span>
-      <span><strong>Movie:</strong> 25</span>
-      <span><strong>+18:</strong> 5</span><br>
-      <span><strong>Redownload:</strong> 50</span>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
+<!--  <table class="table table-striped table-hover table-bordered">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th scope="col" class="image"></th>-->
+<!--      <th scope="col" class="left active">-->
+<!--        Title-->
+<!--        <fa-icon [icon]="faSortAlphaUp"></fa-icon>-->
+<!--        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon>-->
+<!--      </th>-->
+<!--      <th scope="col">Type-->
+<!--        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon>-->
+<!--      </th>-->
+<!--      <th scope="col">Added-->
+<!--        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>-->
+<!--      <th scope="col">Released-->
+<!--        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>-->
+<!--      <th scope="col">Episodes-->
+<!--        <fa-icon [icon]="faSortAmountDown" class="hover"></fa-icon></th>-->
+<!--      <th scope="col" class="icons"></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let n of [0,1,2,3,4,5,6]">-->
+<!--      <td class="image">-->
+<!--        <img src="assets/test.jpg"/>-->
+<!--      </td>-->
+<!--      <td class="left">-->
+<!--        <a href="#">Magia Record: Mahou Shoujo Madoka Magica Gaiden</a>-->
+<!--&lt;!&ndash;        <p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <a href="#">Anidb</a><br>&ndash;&gt;-->
+<!--&lt;!&ndash;          <a href="#">Nyaa: [Magia Record: Mahou Shoujo Madoka Magica Gaiden 720p BD]</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </p>&ndash;&gt;-->
+<!--      </td>-->
+<!--      <td>Series</td>-->
+<!--      <td>16.10.2021</td>-->
+<!--      <td>10.10.2020</td>-->
+<!--      <td>164</td>-->
+<!--      <td class="icons">-->
+<!--        <a href="#">-->
+<!--          <fa-icon [icon]="icon"></fa-icon>-->
+<!--        </a>-->
+<!--        <a href="#">-->
+<!--          <fa-icon [icon]="icon"></fa-icon>-->
+<!--        </a>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--  <div class="box stats">-->
+<!--    <h2>Statistics</h2>-->
+<!--    <div class="content">-->
+<!--      <span><strong>All:</strong> 153</span>-->
+<!--      <span><strong>Series:</strong> 81</span>-->
+<!--      <span><strong>Movie:</strong> 25</span>-->
+<!--      <span><strong>+18:</strong> 5</span><br>-->
+<!--      <span><strong>Redownload:</strong> 50</span>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>

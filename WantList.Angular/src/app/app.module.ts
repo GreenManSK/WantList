@@ -8,10 +8,14 @@ import { IAnimeApi } from './services/api/ianime-api';
 import { MockAnimeApiService } from './services/api/mock/mock-anime-api.service';
 import { MockMangaApiService } from './services/api/mock/mock-manga-api.service';
 import { IMangaApi } from './services/api/imanga-api';
+import { AnimeComponent } from './components/anime/anime.component';
+import { MangaComponent } from './components/manga/manga.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AnimeComponent,
+    MangaComponent
   ],
   imports: [
     BrowserModule,
