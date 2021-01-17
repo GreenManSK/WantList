@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AnidbAnimeServiceService } from '../../services/anidb-anime-service.service';
 import { Quality } from '../../entities/quality.enum';
 import { Anime } from '../../entities/anime';
+import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-anime-title',
@@ -12,7 +13,8 @@ export class AnimeTitleComponent implements OnInit {
 
   @Input() anime: Anime;
 
-  public isOpen;
+  public redownloadIcon = faRetweet;
+  public isOpen: boolean;
 
   constructor( public anidbAnimeService: AnidbAnimeServiceService ) {
   }
