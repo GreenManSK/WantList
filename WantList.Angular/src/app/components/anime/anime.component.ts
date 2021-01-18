@@ -28,6 +28,8 @@ export class AnimeComponent implements OnInit {
     new Column('icons', '', false, 'icons'),
   ];
   public filter: AnimeFilter;
+  public openForm = false;
+  public activeAnime: Anime = null;
 
   private clearAnime: Anime[] = [];
 
@@ -43,9 +45,9 @@ export class AnimeComponent implements OnInit {
   }
 
   public edit( anime: Anime ): boolean {
-    // TODO: Edit anime
-    console.log('Editing', anime);
-    return false;
+    this.activeAnime = anime;
+    this.openForm = true;
+    return true;
   }
 
   public delete( anime: Anime ): boolean {
@@ -72,5 +74,10 @@ export class AnimeComponent implements OnInit {
 
   public refilter(): void {
     this.anime = this.filter.filter(this.clearAnime);
+  }
+
+  public closeForm(): void {
+    this.openForm = false;
+    this.activeAnime = null;
   }
 }

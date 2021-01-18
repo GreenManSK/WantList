@@ -16,7 +16,7 @@ export class AnimeService {
     this.observable = new Observable<Anime[]>(r => {
       this.subscriber = r;
       animeApi.getAnimes().subscribe(animes => {
-        this.anime = animes;
+        this.anime = [...animes];
         this.updateAnime();
       });
     });
@@ -26,21 +26,24 @@ export class AnimeService {
     return this.observable;
   }
 
-  public add( anime: Anime ): void {
+  public add( anime: Anime, onSuccess: () => void ): void {
     this.animeApi.add(anime).subscribe(addedAnime => {
+      console.log(addedAnime);
       if (addedAnime != null) {
         this.anime.push(addedAnime);
         this.updateAnime();
+        onSuccess();
       }
     });
   }
 
-  public edit( anime: Anime ): void {
+  public edit( anime: Anime, onSuccess: () => void ): void {
     this.animeApi.update(anime).subscribe(updatedAnime => {
       if (updatedAnime != null) {
         const index = this.anime.findIndex(a => a.id === updatedAnime.id);
         this.anime[index] = updatedAnime;
         this.updateAnime();
+        onSuccess();
       }
     });
   }

@@ -3,7 +3,6 @@
 /* Importing Bootstrap SCSS file. */
 @import '../../node_modules/bootstrap/scss/bootstrap'
 @import 'variables'
-@import 'responsive'
 
 html
   font-size: 62.5%
@@ -207,5 +206,29 @@ table.table
         &:last-child
           margin-right: 0
 
+  &.form
+    form
+      label
+        text-align: right
+      input, textarea
+        font-size: 1.3rem
+      select
+        width: 100%
+      button
+        font-size: 1.5rem
+        margin-right: 1rem
+        &.btn-primary
+          background: $color2
+          border-color: darken($color2, 10%)
+          &:active, &:focus
+            background: $color1
+            border-color: $color2
+            box-shadow: 0 0 0 0.2rem transparentize($color1, .5)
+      input[type='checkbox']
+        margin-left: 0
+        margin-top: 1rem
+
 input[type='checkbox']:checked
   -webkit-filter: sepia(1) hue-rotate(293deg) saturate(121%) brightness(101%)
+
+@import 'responsive'

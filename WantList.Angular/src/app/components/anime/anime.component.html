@@ -1,3 +1,4 @@
+<app-anime-form *ngIf="openForm" (onClose)="closeForm()" [anime]="activeAnime"></app-anime-form>
 <div class="box filter">
   <div class="content no-title">
     <form>
@@ -53,7 +54,7 @@
         {{data.item[data.column.key] | date:'dd.MM.yyyy'}}
       </ng-container>
       <ng-container *ngSwitchCase="'icons'">
-        <a href="#" (click)="edit(data.item)" title="Edit">
+        <a href="#animeForm" (click)="edit(data.item)" title="Edit">
           <fa-icon [icon]="editIcon"></fa-icon>
         </a>
         <a href="#" (click)="delete(data.item)" title="Delete">

@@ -13,6 +13,7 @@ import { MangaComponent } from './components/manga/manga.component';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { AnimeTitleComponent } from './components/anime-title/anime-title.component';
 import { FormsModule } from '@angular/forms';
+import { AnimeFormComponent } from './copmonents/anime-form/anime-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     AnimeComponent,
     MangaComponent,
     ListTableComponent,
-    AnimeTitleComponent
+    AnimeTitleComponent,
+    AnimeFormComponent
   ],
   imports: [
     BrowserModule,
