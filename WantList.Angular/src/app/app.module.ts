@@ -13,7 +13,7 @@ import { MangaComponent } from './components/manga/manga.component';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { AnimeTitleComponent } from './components/anime-title/anime-title.component';
 import { FormsModule } from '@angular/forms';
-import { AnimeFormComponent } from './copmonents/anime-form/anime-form.component';
+import { AnimeFormComponent } from './components/anime-form/anime-form.component';
 import { IAnidbAnimeApi } from './services/api/ianidb-anime-api';
 import { MockAnidbAnimeApiService } from './services/api/mock/mock-anidb-anime-api.service';
 import { AnidbSuggestionComponent } from './components/anidb-suggestion/anidb-suggestion.component';
