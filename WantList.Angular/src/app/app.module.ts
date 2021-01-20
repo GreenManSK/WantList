@@ -14,6 +14,8 @@ import { ListTableComponent } from './components/list-table/list-table.component
 import { AnimeTitleComponent } from './components/anime-title/anime-title.component';
 import { FormsModule } from '@angular/forms';
 import { AnimeFormComponent } from './copmonents/anime-form/anime-form.component';
+import { IAnidbAnimeApi } from './services/api/ianidb-anime-api';
+import { MockAnidbAnimeApiService } from './services/api/mock/mock-anidb-anime-api.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { AnimeFormComponent } from './copmonents/anime-form/anime-form.component
   ],
   providers: [
     {provide: IAnimeApi, useClass: MockAnimeApiService},
-    {provide: IMangaApi, useClass: MockMangaApiService}
+    {provide: IMangaApi, useClass: MockMangaApiService},
+    {provide: IAnidbAnimeApi, useClass: MockAnidbAnimeApiService},
   ],
   bootstrap: [AppComponent]
 })

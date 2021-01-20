@@ -6,18 +6,34 @@ import { AnidbAnime } from '../../../entities/anidb-anime';
 @Injectable({
   providedIn: 'root'
 })
-export class MockAnidbAnimeApiService implements IAnidbAnimeApi {
+export class MockAnidbAnimeApiService extends IAnidbAnimeApi {
 
-  constructor() {
+  randomAnidbAnime(): AnidbAnime {
+    const anidbAnime = new AnidbAnime();
+    anidbAnime.anidbId = this.randomNum(1, 1000);
+    const type = this.randomNum(1, 100);
+    if (type % 3 === 0) {
+      anidbAnime.english = this.randomNum(1000000000, 99999999999).toString();
+    } else if (type % 3 === 1) {
+      anidbAnime.japanese = this.randomNum(1000000000, 99999999999).toString();
+    } else {
+      anidbAnime.english = this.randomNum(1000000000, 99999999999).toString();
+      anidbAnime.japanese = this.randomNum(1000000000, 99999999999).toString();
+    }
+    return anidbAnime;
+  }
+
+  randomNum( min: number, max: number ): number {
+    return Math.round(Math.random() * (max - min) + min);
   }
 
   getAnidbAnime(): Observable<AnidbAnime[]> {
+    const animes = [];
+    for (let i = 0; i < 100; i++) {
+      animes.push(this.randomAnidbAnime());
+    }
     return new Observable<AnidbAnime[]>(r => {
-      r.next([
-        new AnidbAnime(10, 'naruto', ''),
-        new AnidbAnime(11, '', 'blíČ'),
-        new AnidbAnime(13, 'ft', 'fairy téru'),
-      ]);
+      r.next(animes);
     });
   }
 
