@@ -40,15 +40,10 @@ export class AnimeFormComponent implements OnInit, OnChanges {
   }
 
   private prepareData(): void {
-    if (!this.anime) {
-      this.isAdd = true;
-      this.anime = new Anime();
+      this.isAdd = !!!this.anime.id;
       this.anime.type = AnimeType.Series;
       this.anime.wantRank = 7;
       this.anime.quality = Quality.p720;
-    } else {
-      this.isAdd = false;
-    }
   }
 
   public onSubmit(): boolean {
