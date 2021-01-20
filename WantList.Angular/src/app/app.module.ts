@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { AnimeFormComponent } from './copmonents/anime-form/anime-form.component';
 import { IAnidbAnimeApi } from './services/api/ianidb-anime-api';
 import { MockAnidbAnimeApiService } from './services/api/mock/mock-anidb-anime-api.service';
+import { AnidbSuggestionComponent } from './components/anidb-suggestion/anidb-suggestion.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MockAnidbAnimeApiService } from './services/api/mock/mock-anidb-anime-a
     MangaComponent,
     ListTableComponent,
     AnimeTitleComponent,
-    AnimeFormComponent
+    AnimeFormComponent,
+    AnidbSuggestionComponent
   ],
   imports: [
     BrowserModule,

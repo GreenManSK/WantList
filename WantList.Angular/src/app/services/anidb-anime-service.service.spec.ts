@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AnidbAnimeServiceService } from './anidb-anime-service.service';
+import { AnidbAnimeService } from './anidb-anime.service';
 
 describe('AnidbAnimeServiceService', () => {
-  let service: AnidbAnimeServiceService;
+  let service: AnidbAnimeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AnidbAnimeServiceService);
+    service = TestBed.inject(AnidbAnimeService);
   });
 
   it('should be created', () => {

@@ -3,6 +3,7 @@ import { Anime } from '../../entities/anime';
 import { AnimeService } from '../../services/anime.service';
 import { AnimeType } from '../../entities/anime-type.enum';
 import { Quality } from '../../entities/quality.enum';
+import { AnidbAnime } from '../../entities/anidb-anime';
 
 @Component({
   selector: 'app-anime-form',
@@ -40,10 +41,10 @@ export class AnimeFormComponent implements OnInit, OnChanges {
   }
 
   private prepareData(): void {
-      this.isAdd = !!!this.anime.id;
-      this.anime.type = AnimeType.Series;
-      this.anime.wantRank = 7;
-      this.anime.quality = Quality.p720;
+    this.isAdd = !!!this.anime.id;
+    this.anime.type = AnimeType.Series;
+    this.anime.wantRank = 7;
+    this.anime.quality = Quality.p720;
   }
 
   public onSubmit(): boolean {
@@ -58,5 +59,13 @@ export class AnimeFormComponent implements OnInit, OnChanges {
   public close(): boolean {
     this.onClose.emit();
     return false;
+  }
+
+  public onSuggestion( anime: AnidbAnime ): void {
+    if (!this.anime.anidbId) {
+      this.anime.anidbId = anime.anidbId;
+    } else {
+      this.anime.name = anime.japanese ? anime.japanese : anime.english;
+    }
   }
 }

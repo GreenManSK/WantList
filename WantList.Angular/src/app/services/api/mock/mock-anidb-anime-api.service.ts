@@ -14,7 +14,9 @@ export class MockAnidbAnimeApiService extends IAnidbAnimeApi {
     const type = this.randomNum(1, 100);
     if (type % 3 === 0) {
       anidbAnime.english = this.randomNum(1000000000, 99999999999).toString();
+      anidbAnime.japanese = '';
     } else if (type % 3 === 1) {
+      anidbAnime.english = '';
       anidbAnime.japanese = this.randomNum(1000000000, 99999999999).toString();
     } else {
       anidbAnime.english = this.randomNum(1000000000, 99999999999).toString();

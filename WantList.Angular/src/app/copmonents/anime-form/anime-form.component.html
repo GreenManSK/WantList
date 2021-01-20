@@ -1,4 +1,4 @@
-<div class="box form" id="animeForm">
+<div class="box form">
   <h2>{{isAdd ? 'Add' : 'Edit'}} anime</h2>
   <div class="content">
     <form>
@@ -12,6 +12,16 @@
         <label for="animeAnidb" class="col-sm-2 col-form-label">Anidb ID</label>
         <div class="col-sm-10">
           <input type="number" class="form-control" id="animeAnidb" name="anidb" [(ngModel)]="anime.anidbId">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-10 offset-sm-2">
+          <app-anidb-suggestion
+            *ngIf="anime.name == '' || anime.name == null || anime.anidbId == null"
+            [name]="anime.name"
+            [anidbId]="anime.anidbId"
+            (onSelect)="onSuggestion($event)">
+          </app-anidb-suggestion>
         </div>
       </div>
       <div class="mb-3 row">
@@ -53,7 +63,8 @@
       <div class="mb-3 row">
         <label for="redownload" class="col-sm-2 col-3 col-form-label">Redownload</label>
         <div class="col-sm-10 col-9">
-          <input class="form-check-input" type="checkbox" id="redownload" name="redownload" [(ngModel)]="anime.redownload">
+          <input class="form-check-input" type="checkbox" id="redownload" name="redownload"
+                 [(ngModel)]="anime.redownload">
         </div>
       </div>
       <div class="mb-3 row">

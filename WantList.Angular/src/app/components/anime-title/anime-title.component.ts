@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AnidbAnimeServiceService } from '../../services/anidb-anime-service.service';
+import { AnidbAnimeService } from '../../services/anidb-anime.service';
 import { Quality } from '../../entities/quality.enum';
 import { Anime } from '../../entities/anime';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +17,7 @@ export class AnimeTitleComponent implements OnInit {
   public redownloadIcon = faRetweet;
   public isOpen: boolean;
 
-  constructor( public anidbAnimeService: AnidbAnimeServiceService, public nyaaServiceService: NyaaServiceService) {
+  constructor( public anidbAnimeService: AnidbAnimeService, public nyaaServiceService: NyaaServiceService) {
   }
 
   ngOnInit(): void {

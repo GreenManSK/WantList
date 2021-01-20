@@ -6,7 +6,7 @@ import { AnidbAnime } from '../entities/anidb-anime';
 @Injectable({
   providedIn: 'root'
 })
-export class AnidbAnimeServiceService {
+export class AnidbAnimeService {
 
   constructor(@Inject(IAnidbAnimeApi) private anidbAnimeApi: IAnidbAnimeApi) { }
 
