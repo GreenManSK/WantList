@@ -1,0 +1,5 @@
+<div *ngFor="let anime of suggestions" (click)="select(anime)">
+  <strong>{{anime.japanese ? anime.japanese : anime.english}} (<a title="See on Anidb" [href]="anidbAnimeService.getUrl(anime.anidbId)" target="_blank"
+                               (click)="stopEvent($event)">a{{anime.anidbId}}</a>)</strong><br>
+  <strong *ngIf="anime.japanese">{{anime.english}}</strong>
+</div>
