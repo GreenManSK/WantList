@@ -56,7 +56,6 @@ export class MangaService {
   }
 
   public getImage(manga: Manga): string {
-    console.log(this.mangaApi);
     return this.mangaApi.getImage(manga);
   }
 
