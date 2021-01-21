@@ -5,19 +5,19 @@
       <div class="mb-3 row">
         <label for="animeName" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="animeName" name="name" [(ngModel)]="manga.name">
+          <input type="text" class="form-control" id="animeName" name="name" [(ngModel)]="editedManga.name">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="animeAnidb" class="col-sm-2 col-form-label">Baka Manga ID</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="animeAnidb" name="anidb" [(ngModel)]="manga.mangaUpdatesId">
+          <input type="number" class="form-control" id="animeAnidb" name="anidb" [(ngModel)]="editedManga.mangaUpdatesId">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="rank" class="col-sm-2 col-form-label">Rank</label>
         <div class="col-sm-10">
-          <select class="form-select" name="rank" id="rank" [(ngModel)]="manga.wantRank">
+          <select class="form-select" name="rank" id="rank" [(ngModel)]="editedManga.wantRank">
             <option *ngFor="let item of ranks | keyvalue" [ngValue]="item.value">
               {{item.value}}
             </option>
@@ -27,13 +27,13 @@
       <div class="mb-3 row">
         <label for="bluray" class="col-sm-2 col-3 col-form-label">Completed</label>
         <div class="col-sm-10 col-9">
-          <input class="form-check-input" type="checkbox" id="bluray" name="bluray" [(ngModel)]="manga.completed">
+          <input class="form-check-input" type="checkbox" id="bluray" name="bluray" [(ngModel)]="editedManga.completed">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="note" class="col-sm-2 col-form-label">Missing volumes</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="note" rows="3" name="note" [(ngModel)]="manga.missingVolumes"></textarea>
+          <textarea class="form-control" id="note" rows="3" name="note" [(ngModel)]="editedManga.missingVolumes"></textarea>
         </div>
       </div>
       <div class="mb-3 row">

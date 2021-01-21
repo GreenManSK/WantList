@@ -14,6 +14,7 @@ export class MangaFormComponent implements OnInit, OnChanges {
 
   public isAdd = false;
   public readonly ranks = [...Array(10).keys()].map(n => n + 1).reverse();
+  public editedManga: Manga = null;
 
   constructor( private mangaService: MangaService ) {
   }
@@ -28,16 +29,25 @@ export class MangaFormComponent implements OnInit, OnChanges {
 
   public prepareData(): void {
     this.isAdd = !!!this.manga.id;
-    this.manga.wantRank = 7;
+    this.editedManga = new Manga();
+    if (this.isAdd) {
+      this.manga.wantRank = 7;
+    }
+    this.editedManga.copyFrom(this.manga);
   }
 
   public onSubmit(): boolean {
     if (this.isAdd) {
-      this.mangaService.add(this.manga, () => close());
+      this.mangaService.add(this.manga, () => this.onSuccess());
     } else {
-      this.mangaService.edit(this.manga, () => close());
+      this.mangaService.edit(this.manga, () => this.onSuccess());
     }
     return false;
+  }
+
+  public onSuccess(): void {
+    this.manga.copyFrom(this.editedManga);
+    this.close();
   }
 
   public close(): boolean {

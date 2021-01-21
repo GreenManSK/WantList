@@ -15,6 +15,8 @@ export class AnimeFormComponent implements OnInit, OnChanges {
   @Output() onClose: EventEmitter<void> = new EventEmitter();
   @Input() anime: Anime = null;
 
+  public editedAnime: Anime = null;
+
   public isAdd = false;
   public readonly animeTypes = [
     'Series',
@@ -42,18 +44,27 @@ export class AnimeFormComponent implements OnInit, OnChanges {
 
   private prepareData(): void {
     this.isAdd = !!!this.anime.id;
-    this.anime.type = AnimeType.Series;
-    this.anime.wantRank = 7;
-    this.anime.quality = Quality.p720;
+    this.editedAnime = new Anime();
+    if (this.isAdd) {
+      this.anime.type = AnimeType.Series;
+      this.anime.wantRank = 7;
+      this.anime.quality = Quality.p720;
+    }
+    this.editedAnime.copyFrom(this.anime);
   }
 
   public onSubmit(): boolean {
     if (this.isAdd) {
-      this.animeService.add(this.anime, () => this.onClose.emit());
+      this.animeService.add(this.anime, () => this.onSuccess());
     } else {
-      this.animeService.edit(this.anime, () => this.onClose.emit());
+      this.animeService.edit(this.anime, () => this.onSuccess());
     }
     return false;
+  }
+
+  public onSuccess(): void {
+    this.anime.copyFrom(this.editedAnime);
+    this.close();
   }
 
   public close(): boolean {

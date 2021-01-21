@@ -5,21 +5,21 @@
       <div class="mb-3 row">
         <label for="animeName" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="animeName" name="name" [(ngModel)]="anime.name">
+          <input type="text" class="form-control" id="animeName" name="name" [(ngModel)]="editedAnime.name">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="animeAnidb" class="col-sm-2 col-form-label">Anidb ID</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="animeAnidb" name="anidb" [(ngModel)]="anime.anidbId">
+          <input type="number" class="form-control" id="animeAnidb" name="anidb" [(ngModel)]="editedAnime.anidbId">
         </div>
       </div>
       <div class="mb-3 row">
         <div class="col-sm-10 offset-sm-2">
           <app-anidb-suggestion
-            *ngIf="anime.name == '' || anime.name == null || anime.anidbId == null"
-            [name]="anime.name"
-            [anidbId]="anime.anidbId"
+            *ngIf="editedAnime.name == '' || editedAnime.name == null || editedAnime.anidbId == null"
+            [name]="editedAnime.name"
+            [anidbId]="editedAnime.anidbId"
             (onSelect)="onSuggestion($event)">
           </app-anidb-suggestion>
         </div>
@@ -27,7 +27,7 @@
       <div class="mb-3 row">
         <label for="type" class="col-sm-2 col-form-label">Type</label>
         <div class="col-sm-10">
-          <select class="form-select" name="type" id="type" [(ngModel)]="anime.type">
+          <select class="form-select" name="type" id="type" [(ngModel)]="editedAnime.type">
             <option *ngFor="let item of animeTypes | keyvalue" [ngValue]="+item.key">
               {{item.value}}
             </option>
@@ -37,7 +37,7 @@
       <div class="mb-3 row">
         <label for="rank" class="col-sm-2 col-form-label">Rank</label>
         <div class="col-sm-10">
-          <select class="form-select" name="rank" id="rank" [(ngModel)]="anime.wantRank">
+          <select class="form-select" name="rank" id="rank" [(ngModel)]="editedAnime.wantRank">
             <option *ngFor="let item of ranks | keyvalue" [ngValue]="item.value">
               {{item.value}}
             </option>
@@ -47,7 +47,7 @@
       <div class="mb-3 row">
         <label for="quality" class="col-sm-2 col-form-label">Quality</label>
         <div class="col-sm-10">
-          <select class="form-select" name="quality" id="quality" [(ngModel)]="anime.quality">
+          <select class="form-select" name="quality" id="quality" [(ngModel)]="editedAnime.quality">
             <option *ngFor="let item of quality | keyvalue" [ngValue]="+item.key">
               {{item.value}}
             </option>
@@ -57,20 +57,20 @@
       <div class="mb-3 row">
         <label for="bluray" class="col-sm-2 col-3 col-form-label">BluRay</label>
         <div class="col-sm-10 col-9">
-          <input class="form-check-input" type="checkbox" id="bluray" name="bluray" [(ngModel)]="anime.bluRay">
+          <input class="form-check-input" type="checkbox" id="bluray" name="bluray" [(ngModel)]="editedAnime.bluRay">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="redownload" class="col-sm-2 col-3 col-form-label">Redownload</label>
         <div class="col-sm-10 col-9">
           <input class="form-check-input" type="checkbox" id="redownload" name="redownload"
-                 [(ngModel)]="anime.redownload">
+                 [(ngModel)]="editedAnime.redownload">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="note" class="col-sm-2 col-form-label">Note</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="note" rows="3" name="note" [(ngModel)]="anime.bluRayRelease"></textarea>
+          <textarea class="form-control" id="note" rows="3" name="note" [(ngModel)]="editedAnime.bluRayRelease"></textarea>
         </div>
       </div>
       <div class="mb-3 row">
