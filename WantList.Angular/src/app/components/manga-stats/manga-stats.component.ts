@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Manga } from '../entities/manga';
+import { Manga } from '../../entities/manga';
 
 @Component({
   selector: 'app-manga-stats',

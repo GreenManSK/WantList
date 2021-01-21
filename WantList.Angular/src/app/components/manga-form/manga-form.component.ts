@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MangaService } from '../services/manga.service';
-import { Manga } from '../entities/manga';
+import { MangaService } from '../../services/manga.service';
+import { Manga } from '../../entities/manga';
 
 @Component({
   selector: 'app-manga-form',

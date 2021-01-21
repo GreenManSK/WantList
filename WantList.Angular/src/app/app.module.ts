@@ -21,8 +21,8 @@ import { RandomButtonComponent } from './components/random-button/random-button.
 import { AnimeStatsComponent } from './components/anime-stats/anime-stats.component';
 import { MangaTitleComponent } from './components/manga-title/manga-title.component';
 import { APP_BASE_HREF } from '@angular/common';
-import { MangaFormComponent } from './manga-form/manga-form.component';
-import { MangaStatsComponent } from './manga-stats/manga-stats.component';
+import { MangaFormComponent } from './components/manga-form/manga-form.component';
+import { MangaStatsComponent } from './components/manga-stats/manga-stats.component';
 
 @NgModule({
   declarations: [
