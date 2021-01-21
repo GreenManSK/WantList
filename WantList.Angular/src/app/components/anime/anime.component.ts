@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AnimeService } from '../../services/anime.service';
 import { Anime } from '../../entities/anime';
 import { Column } from '../list-table/Column';
-import { faEdit, faTrash, faPlus, faRandom } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AnimeType } from '../../entities/anime-type.enum';
 import { AnimeFilter } from '../../data/anime-filter';
 
@@ -16,7 +16,6 @@ export class AnimeComponent implements OnInit {
   public addIcon = faPlus;
   public editIcon = faEdit;
   public deleteIcon = faTrash;
-  public randomIcon = faRandom;
 
   public anime: Anime[] = [];
   public columns = [
@@ -87,5 +86,9 @@ export class AnimeComponent implements OnInit {
   public closeForm(): void {
     this.openForm = false;
     this.activeAnime = null;
+  }
+
+  public getAnimeId( anime: Anime ): string {
+    return `anime${anime.id}`;
   }
 }

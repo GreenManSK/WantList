@@ -36,7 +36,7 @@
 <div class="floating-buttons">
   <div>
     <a href="#top" class="btn btn-primary" (click)="add()"><span>Add anime</span> <fa-icon [icon]="addIcon"></fa-icon></a>
-    <button type="button" class="btn btn-primary"><span>Random anime</span> <fa-icon [icon]="randomIcon"></fa-icon></button>
+    <app-random-button [items]="anime" [idTransform]="getAnimeId"></app-random-button>
   </div>
 </div>
 <app-list-table
@@ -46,7 +46,6 @@
   [defaultIsAsc]="false">
   <ng-template let-data>
     <ng-container [ngSwitch]="data.column.key">
-      <!--      TODO: Type -->
       <ng-container *ngSwitchCase="'image'">
         <img [alt]="data.item.name" [src]="animeService.getAnimeImage(data.item)">
       </ng-container>
@@ -68,7 +67,7 @@
         </a>
       </ng-container>
       <ng-container *ngSwitchCase="'name'">
-        <app-anime-title [anime]="data.item"></app-anime-title>
+        <app-anime-title  [id]="getAnimeId(data.item)" [anime]="data.item"></app-anime-title>
       </ng-container>
       <ng-container *ngSwitchDefault>
         {{data.item[data.column.key]}}
