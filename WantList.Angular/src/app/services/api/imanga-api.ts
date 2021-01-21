@@ -7,5 +7,5 @@ export abstract class IMangaApi {
   abstract add(manga: Manga): Observable<Manga>;
   abstract update(manga: Manga): Observable<Manga>;
   abstract delete(manga: Manga): Observable<Manga>;
-  abstract getAnimeImage(manga: Manga): string;
+  abstract getImage(manga: Manga): string;
 }

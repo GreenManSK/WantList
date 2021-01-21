@@ -1,0 +1,5 @@
+<a [title]="manga.name" href="#" (click)="toggle()">{{manga.name}}</a>
+<p *ngIf="isOpen">
+  <a title="Show on Baka-Updates manga" target="_blank" [href]="mangaUpdatesService.getUrl(manga.mangaUpdatesId)">BakaManga</a><br>
+  {{manga.missingVolumes}}
+</p>

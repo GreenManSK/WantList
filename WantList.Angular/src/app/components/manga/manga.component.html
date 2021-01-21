@@ -1,1 +1,33 @@
-<p>manga works!</p>
+<app-list-table
+  [data]="manga"
+  [columns]="columns"
+  [defaultSortKey]="'wantRank'"
+  [defaultIsAsc]="false">
+  <ng-template let-data>
+    <ng-container [ngSwitch]="data.column.key">
+      <ng-container *ngSwitchCase="'image'">
+        <img [alt]="data.item.name" [src]="mangaService.getImage(data.item)">
+      </ng-container>
+      <ng-container *ngSwitchCase="'addedDateTime'">
+        {{data.item[data.column.key] | date:'dd.MM.yyyy'}}
+      </ng-container>
+      <ng-container *ngSwitchCase="'completed'">
+        {{data.item[data.column.key] ? 'Yes' : 'No'}}
+      </ng-container>
+      <ng-container *ngSwitchCase="'icons'">
+        <a href="#mangaForm" (click)="edit(data.item)" title="Edit">
+          <fa-icon [icon]="editIcon"></fa-icon>
+        </a>
+        <a href="#" (click)="delete(data.item)" title="Delete">
+          <fa-icon [icon]="deleteIcon"></fa-icon>
+        </a>
+      </ng-container>
+      <ng-container *ngSwitchCase="'name'">
+        <app-manga-title  [id]="getMangaId(data.item)" [manga]="data.item"></app-manga-title>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        {{data.item[data.column.key]}}
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</app-list-table>

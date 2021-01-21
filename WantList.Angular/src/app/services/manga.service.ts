@@ -6,7 +6,7 @@ import { IMangaApi } from './api/imanga-api';
 @Injectable({
   providedIn: 'root'
 })
-export class MangaServiceService {
+export class MangaService {
 
   private manga: Manga[] = [];
   private observable: Observable<Manga[]>;
@@ -53,6 +53,11 @@ export class MangaServiceService {
         this.updateManga();
       }
     });
+  }
+
+  public getImage(manga: Manga): string {
+    console.log(this.mangaApi);
+    return this.mangaApi.getImage(manga);
   }
 
   private updateManga(): void {

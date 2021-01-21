@@ -20,7 +20,7 @@ export class MockMangaApiService implements IMangaApi {
   private randomManga(): Manga {
     const manga = new Manga();
     manga.id = this.randomNum(1, 1000);
-    manga.name = this.randomNum(1000000, 99999999).toString();
+    manga.name = this.randomNum(1000000000, 99999999999).toString();
     manga.mangaUpdatesId = this.randomNum(1, 1000);
     manga.addedDateTime = this.randomDate(new Date(1, 1, 1980), new Date());
     manga.wantRank = this.randomNum(1, 10);
@@ -29,7 +29,7 @@ export class MockMangaApiService implements IMangaApi {
   }
 
   randomNum( min: number, max: number ): number {
-    return Math.random() * (max - min) + min;
+    return Math.round(Math.random() * (max - min) + min);
   }
 
   randomDate( start: Date, end: Date ) {
@@ -53,7 +53,7 @@ export class MockMangaApiService implements IMangaApi {
     });
   }
 
-  getAnimeImage( manga: Manga ): string {
+  getImage( manga: Manga ): string {
     return 'assets/test.jpg';
   }
 
