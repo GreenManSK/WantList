@@ -20,6 +20,8 @@ import { AnidbSuggestionComponent } from './components/anidb-suggestion/anidb-su
 import { RandomButtonComponent } from './components/random-button/random-button.component';
 import { AnimeStatsComponent } from './components/anime-stats/anime-stats.component';
 import { MangaTitleComponent } from './components/manga-title/manga-title.component';
+import { APP_BASE_HREF } from '@angular/common';
+import { MangaFormComponent } from './manga-form/manga-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { MangaTitleComponent } from './components/manga-title/manga-title.compon
     AnidbSuggestionComponent,
     RandomButtonComponent,
     AnimeStatsComponent,
-    MangaTitleComponent
+    MangaTitleComponent,
+    MangaFormComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { MangaTitleComponent } from './components/manga-title/manga-title.compon
     FormsModule
   ],
   providers: [
+    {provide: APP_BASE_HREF, useValue: '/'},
     {provide: IAnimeApi, useClass: MockAnimeApiService},
     {provide: IMangaApi, useClass: MockMangaApiService},
     {provide: IAnidbAnimeApi, useClass: MockAnidbAnimeApiService},

@@ -1,3 +1,10 @@
+<app-manga-form *ngIf="openForm" (onClose)="closeForm()" [manga]="activeManga"></app-manga-form>
+<div class="floating-buttons">
+  <div>
+    <a href="#top" class="btn btn-primary" (click)="add()"><span>Add manga</span> <fa-icon [icon]="addIcon"></fa-icon></a>
+<!--    <app-random-button [items]="anime" [idTransform]="getAnimeId"></app-random-button>-->
+  </div>
+</div>
 <app-list-table
   [data]="manga"
   [columns]="columns"
