@@ -32,7 +32,7 @@ export class AnimeComponent implements OnInit {
   public openForm = false;
   public activeAnime: Anime = new Anime();
 
-  private clearAnime: Anime[] = [];
+  public clearAnime: Anime[] = [];
 
   constructor( public animeService: AnimeService ) {
     this.filter = new AnimeFilter();

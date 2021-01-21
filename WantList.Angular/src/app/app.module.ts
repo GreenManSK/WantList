@@ -18,6 +18,7 @@ import { IAnidbAnimeApi } from './services/api/ianidb-anime-api';
 import { MockAnidbAnimeApiService } from './services/api/mock/mock-anidb-anime-api.service';
 import { AnidbSuggestionComponent } from './components/anidb-suggestion/anidb-suggestion.component';
 import { RandomButtonComponent } from './components/random-button/random-button.component';
+import { AnimeStatsComponent } from './components/anime-stats/anime-stats.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RandomButtonComponent } from './components/random-button/random-button.
     AnimeTitleComponent,
     AnimeFormComponent,
     AnidbSuggestionComponent,
-    RandomButtonComponent
+    RandomButtonComponent,
+    AnimeStatsComponent
   ],
   imports: [
     BrowserModule,
