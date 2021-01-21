@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  nyaaDomain: 'https://nyaa.si/'
+  nyaaDomain: 'https://nyaa.si/',
+  restUrl: 'https://localhost:5001/api/'
 };
 
 /*
