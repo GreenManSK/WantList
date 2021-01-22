@@ -100,7 +100,7 @@ namespace WantList.Controllers
         }
 
         [HttpPut]
-        public ActionResult<MangaDto> Update(int id, MangaDto mangaDto)
+        public ActionResult<MangaDto> Update(MangaDto mangaDto)
         {
             if (!ModelState.IsValid)
             {
@@ -109,10 +109,10 @@ namespace WantList.Controllers
 
             try
             {
-                var oldManga = _mangaData.GetById(id);
+                var oldManga = _mangaData.GetById(mangaDto.Id);
                 if (oldManga == null)
                 {
-                    return NotFound($"Could not find manga with id {id}");
+                    return NotFound($"Could not find manga with id {mangaDto.Id}");
                 }
 
                 if (oldManga.MangaUpdatesId != mangaDto.MangaUpdatesId)

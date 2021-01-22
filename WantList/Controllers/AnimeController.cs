@@ -99,7 +99,7 @@ namespace WantList.Controllers
         }
 
         [HttpPut]
-        public ActionResult<AnimeDto> Update(int id, AnimeDto animeDto)
+        public ActionResult<AnimeDto> Update(AnimeDto animeDto)
         {
             if (!ModelState.IsValid)
             {
@@ -108,10 +108,10 @@ namespace WantList.Controllers
 
             try
             {
-                var oldAnime = _animeData.GetById(id);
+                var oldAnime = _animeData.GetById(animeDto.Id);
                 if (oldAnime == null)
                 {
-                    return NotFound($"Could not find anime with id {id}");
+                    return NotFound($"Could not find anime with id {animeDto.Id}");
                 }
 
                 if (oldAnime.AnidbId != animeDto.AnidbId)
