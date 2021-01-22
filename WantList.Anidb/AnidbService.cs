@@ -15,7 +15,8 @@ namespace WantList.Anidb
     public class AnidbService
     {
         private const string EpisodeCountSelector = "//span[contains(@itemprop, 'numberOfEpisodes')]";
-        private const string ReleaseDateSelector = "//span[contains(@itemprop, 'startDate')]";
+        private const string StartDateSelector = "//span[contains(@itemprop, 'startDate')]";
+        private const string PublishedDateSelector = "//span[contains(@itemprop, 'datePublished')]";
 
         private readonly ILogger<AnidbService> _logger;
         private readonly string _imagesPath;
@@ -72,7 +73,8 @@ namespace WantList.Anidb
             
             var imageNode = htmlDoc.DocumentNode.Descendants("img").FirstOrDefault();
             var episodeCountNode = htmlDoc.DocumentNode.SelectNodes(EpisodeCountSelector);
-            var releaseDateNode = htmlDoc.DocumentNode.SelectNodes(ReleaseDateSelector);
+            var startDateNode = htmlDoc.DocumentNode.SelectNodes(StartDateSelector);
+            var publishedDateNode = htmlDoc.DocumentNode.SelectNodes(PublishedDateSelector);
 
             animeData.ImageUrl = imageNode != null ? imageNode.GetAttributeValue("src", "") : "";
             if (episodeCountNode != null)
@@ -82,9 +84,13 @@ namespace WantList.Anidb
                 animeData.Type = GetAnimeType(node.ParentNode.InnerText);
             }
 
-            if (releaseDateNode != null)
+            if (startDateNode != null)
             {
-                var date = releaseDateNode.First().InnerText;
+                var date = startDateNode.First().InnerText;
+                animeData.ReleaseDate = DateTime.ParseExact(date, "dd.MM.yyyy", null);
+            } else if (publishedDateNode != null)
+            {
+                var date = publishedDateNode.First().InnerText;
                 animeData.ReleaseDate = DateTime.ParseExact(date, "dd.MM.yyyy", null);
             }
 
