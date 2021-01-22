@@ -35,7 +35,7 @@ export class MangaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mangaService.getManga().subscribe(manga => {
-      this.clearManga = manga;
+      this.clearManga = [...manga];
       this.manga = manga.filter(m => !m.deleted);
     });
   }

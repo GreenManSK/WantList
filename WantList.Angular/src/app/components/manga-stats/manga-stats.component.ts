@@ -28,6 +28,7 @@ export class MangaStatsComponent implements OnInit, OnChanges {
   }
 
   private computeStats(): void {
+    this.all = this.completed = this.running = this.deleted = 0;
     for (const m of this.manga) {
       if (m.deleted) {
         this.deleted++;

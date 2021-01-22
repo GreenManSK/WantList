@@ -40,7 +40,7 @@ export class AnimeComponent implements OnInit {
 
   ngOnInit(): void {
     this.animeService.getAnime().subscribe(anime => {
-      this.clearAnime = anime;
+      this.clearAnime = [...anime];
       this.refilter();
     });
   }

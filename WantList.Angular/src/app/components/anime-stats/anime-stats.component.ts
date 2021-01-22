@@ -31,6 +31,8 @@ export class AnimeStatsComponent implements OnInit, OnChanges {
   }
 
   private computeStats(): void {
+    this.all = this.series = this.movies = this.p18s = this.ovas = this.redownload = this.deleted = 0;
+
     for (const a of this.anime) {
       if (a.deleted) {
         this.deleted++;
