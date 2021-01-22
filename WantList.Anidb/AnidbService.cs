@@ -92,6 +92,7 @@ namespace WantList.Anidb
             {
                 var date = publishedDateNode.First().InnerText;
                 animeData.ReleaseDate = DateTime.ParseExact(date, "dd.MM.yyyy", null);
+                animeData.Type = AnimeType.Movie;
             }
 
             return animeData;
