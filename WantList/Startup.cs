@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,16 @@ namespace WantList
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (_environment.IsDevelopment())
+            {
+                services.AddCors(o => o.AddPolicy("DevelopmentPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                }));
+            }
+            
             services.AddDbContextPool<WantListDbContext>(options =>
             {
                 if (_environment.IsDevelopment() && Configuration.GetValue<bool>("LogQueries"))
@@ -61,6 +72,7 @@ namespace WantList
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("DevelopmentPolicy");
             }
 
             app.UseStaticFiles(new StaticFileOptions
