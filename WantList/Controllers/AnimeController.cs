@@ -150,7 +150,7 @@ namespace WantList.Controllers
 
         private void UpdateAnimeDto(AnimeDto animeDto)
         {
-            var data = _anidbService.GetData(animeDto.Id);
+            var data = _anidbService.GetData(animeDto.AnidbId);
             if (animeDto.EpisodeCount == 0)
             {
                 animeDto.EpisodeCount = data.EpisodeCount;

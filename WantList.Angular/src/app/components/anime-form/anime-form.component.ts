@@ -55,9 +55,9 @@ export class AnimeFormComponent implements OnInit, OnChanges {
 
   public onSubmit(): boolean {
     if (this.isAdd) {
-      this.animeService.add(this.anime, () => this.onSuccess());
+      this.animeService.add(this.editedAnime, () => this.onSuccess());
     } else {
-      this.animeService.edit(this.anime, () => this.onSuccess());
+      this.animeService.edit(this.editedAnime, () => this.onSuccess());
     }
     return false;
   }

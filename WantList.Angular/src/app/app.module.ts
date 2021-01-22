@@ -25,6 +25,7 @@ import { MangaFormComponent } from './components/manga-form/manga-form.component
 import { MangaStatsComponent } from './components/manga-stats/manga-stats.component';
 import { AnidbAnimeApiService } from './services/api/anidb-anime-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AnimeApiService } from './services/api/anime-api.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
-    {provide: IAnimeApi, useClass: MockAnimeApiService},
+    {provide: IAnimeApi, useClass: AnimeApiService},
     {provide: IMangaApi, useClass: MockMangaApiService},
     {provide: IAnidbAnimeApi, useClass: AnidbAnimeApiService},
   ],

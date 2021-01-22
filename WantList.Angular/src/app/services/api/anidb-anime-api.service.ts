@@ -26,7 +26,6 @@ export class AnidbAnimeApiService extends IAnidbAnimeApi {
       );
   }
 
-
   private getUrl(): string {
     return `${this.restApiService.url}${this.ANIDB_ANIME_URL}`;
   }

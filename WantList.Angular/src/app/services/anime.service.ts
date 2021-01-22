@@ -28,7 +28,6 @@ export class AnimeService {
 
   public add( anime: Anime, onSuccess: () => void ): void {
     this.animeApi.add(anime).subscribe(addedAnime => {
-      console.log(addedAnime);
       if (addedAnime != null) {
         this.anime.push(addedAnime);
         this.updateAnime();
