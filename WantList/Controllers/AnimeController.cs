@@ -27,7 +27,6 @@ namespace WantList.Controllers
             _animeData = animeData;
             _mapper = mapper;
             _anidbService = anidbService;
-            _anidbService.GetData(5);
         }
 
         [HttpGet]
