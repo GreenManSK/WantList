@@ -25,7 +25,8 @@ export class RestApiService {
   public handleError<T>( operation = 'operation', result?: T ) {
     return ( error: any ): Observable<T> => {
 
-      const msg = `${operation} failed: ${error.message}`;
+      const errorMessage = error.error.title ?? error.message;
+      const msg = `${operation} failed: ${errorMessage}`;
       console.error(msg, error); // log to console
       this.alertService.send(new AlertMessage(msg, AlertType.Error));
 

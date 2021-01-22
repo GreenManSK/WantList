@@ -27,6 +27,7 @@ import { AnidbAnimeApiService } from './services/api/anidb-anime-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AnimeApiService } from './services/api/anime-api.service';
 import { MangaApiService } from './services/api/manga-api.service';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MangaApiService } from './services/api/manga-api.service';
     AnimeStatsComponent,
     MangaTitleComponent,
     MangaFormComponent,
-    MangaStatsComponent
+    MangaStatsComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
