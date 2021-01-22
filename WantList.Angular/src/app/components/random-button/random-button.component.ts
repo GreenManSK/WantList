@@ -21,6 +21,9 @@ export class RandomButtonComponent implements OnInit {
   }
 
   public refreshRandom(): void {
+    if (this.items.length === 0) {
+      return;
+    }
     const randomItem = this.items[Math.floor(Math.random() * this.items.length)];
     this.randomId = this.idTransform(randomItem);
   }
