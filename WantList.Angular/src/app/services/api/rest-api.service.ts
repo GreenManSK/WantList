@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
+import { AlertService } from '../alert.service';
+import { AlertMessage } from '../../data/alert-message';
+import { AlertType } from '../../data/alert-type';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,7 @@ export class RestApiService {
 
   public readonly url: string;
 
-  constructor(/*, private alertService: AlertService*/) {
+  constructor(private alertService: AlertService) {
     this.url = environment.restUrl;
   }
 
@@ -24,7 +27,7 @@ export class RestApiService {
 
       const msg = `${operation} failed: ${error.message}`;
       console.error(msg, error); // log to console
-      // TODO: this.alertService.send(new AlertMessage(msg, AlertType.Error));
+      this.alertService.send(new AlertMessage(msg, AlertType.Error));
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
