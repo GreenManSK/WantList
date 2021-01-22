@@ -20,6 +20,7 @@ namespace WantList
     public class Startup
     {
         public const string StaticImagesPath = "/static/images";
+        private const string ClientUrl = "";
         
         public IConfiguration Configuration { get; }
         private IWebHostEnvironment _environment;
@@ -81,6 +82,13 @@ namespace WantList
                 RequestPath = StaticImagesPath
             });
 
+            app.UseDefaultFiles(GetDefaultFileOptions());
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Configuration.GetValue<string>("ClientBuildPath")),
+                RequestPath = ClientUrl
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -98,6 +106,20 @@ namespace WantList
             });
 
             anidbSync.OnStartup();
+        }
+
+        private DefaultFilesOptions GetDefaultFileOptions()
+        {
+            var path = Configuration.GetValue<string>("ClientBuildPath");
+            var fileProvider = new PhysicalFileProvider(path);
+
+            var options = new DefaultFilesOptions
+            {
+                FileProvider = fileProvider,
+                RequestPath = ClientUrl
+            };
+            options.DefaultFileNames.Add("index.html");
+            return options;
         }
     }
 }
