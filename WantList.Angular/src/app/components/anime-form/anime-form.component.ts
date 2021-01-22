@@ -73,10 +73,7 @@ export class AnimeFormComponent implements OnInit, OnChanges {
   }
 
   public onSuggestion( anime: AnidbAnime ): void {
-    if (!this.anime.anidbId) {
-      this.anime.anidbId = anime.anidbId;
-    } else {
-      this.anime.name = anime.japanese ? anime.japanese : anime.english;
-    }
+    this.editedAnime.anidbId = anime.anidbId;
+    this.editedAnime.name = anime.japanese ? anime.japanese : anime.english;
   }
 }

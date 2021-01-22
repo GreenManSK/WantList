@@ -16,12 +16,23 @@ export class AnidbSuggestionComponent implements OnInit, OnChanges {
   public suggestions: AnidbAnime[] = [];
 
   private animes: AnidbAnime[] = [];
+  private animesByNames: object = {};
 
   constructor( public anidbAnimeService: AnidbAnimeService ) {
   }
 
   ngOnInit(): void {
-    this.anidbAnimeService.getAnidbAnime().subscribe(animes => this.animes = animes);
+    this.anidbAnimeService.getAnidbAnime().subscribe(animes => {
+      this.animes = animes;
+      for (const anime of animes) {
+        if (anime.english) {
+          this.animesByNames[anime.english.toLowerCase()] = anime;
+        }
+        if (anime.japanese) {
+          this.animesByNames[anime.japanese.toLowerCase()] = anime;
+        }
+      }
+    });
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -37,7 +48,8 @@ export class AnidbSuggestionComponent implements OnInit, OnChanges {
     if (this.anidbId) {
       this.suggestions = this.animes.filter(a => a.anidbId === this.anidbId);
     } else if (this.name && !this.name.match(/^\s*$/)) {
-      this.suggestions = this.animes.filter(a => a.english.startsWith(this.name) || a.japanese.startsWith(this.name));
+      const name = this.name.toLowerCase();
+      this.suggestions = Object.keys(this.animesByNames).filter(n => n.startsWith(name)).map(n => this.animesByNames[n]);
     } else {
       this.suggestions = [];
     }
