@@ -23,7 +23,7 @@ export class NyaaServiceService {
     let text = anime.name;
     text += anime.bluRay ? ' BD' : '';
     if (anime.quality !== Quality.any) {
-      text += anime.quality === Quality.p1080 ? '1080' : '720';
+      text += anime.quality === Quality.p1080 ? ' 1080' : ' 720';
     }
     return text;
   }
