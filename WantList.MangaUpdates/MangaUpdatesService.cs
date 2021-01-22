@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,9 @@ namespace WantList.MangaUpdates
         private const string TitleSelector = "//span[contains(@class, 'releasestitle')]";
         private const string ImageSelector = "//div[contains(@class, 'sContent')]//img";
         private const string VolumesSelector = "//div[contains(@class, 'sContent')][contains(., 'Volumes')]";
-        
+
+        private readonly Regex VolumesLineRegex = new Regex(@"^\d+ Volumes?");
+
         private readonly ILogger<MangaUpdatesService> _logger;
         private readonly string _imagesPath;
 
@@ -76,11 +79,18 @@ namespace WantList.MangaUpdates
 
             if (volumesElement != null)
             {
-                var volumesText = volumesElement.First().InnerText.Split("<br>").First();
-                manga.Volumes = int.Parse(volumesText.Split(" ").First());
-                manga.Completed = volumesText.Contains("Complete");
+                var lines = volumesElement.First().InnerHtml.Split("<br>");
+                foreach (var line in lines)
+                {
+                    if (VolumesLineRegex.IsMatch(line))
+                    {
+                        manga.Volumes = int.Parse(line.Split(" ").First());
+                        manga.Completed = line.Contains("Complete");
+                        break;
+                    }
+                }
             }
-            
+
             return manga;
         }
 
