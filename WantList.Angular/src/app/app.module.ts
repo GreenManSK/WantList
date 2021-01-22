@@ -23,6 +23,8 @@ import { MangaTitleComponent } from './components/manga-title/manga-title.compon
 import { APP_BASE_HREF } from '@angular/common';
 import { MangaFormComponent } from './components/manga-form/manga-form.component';
 import { MangaStatsComponent } from './components/manga-stats/manga-stats.component';
+import { AnidbAnimeApiService } from './services/api/anidb-anime-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,13 +45,14 @@ import { MangaStatsComponent } from './components/manga-stats/manga-stats.compon
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: IAnimeApi, useClass: MockAnimeApiService},
     {provide: IMangaApi, useClass: MockMangaApiService},
-    {provide: IAnidbAnimeApi, useClass: MockAnidbAnimeApiService},
+    {provide: IAnidbAnimeApi, useClass: AnidbAnimeApiService},
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClientService } from './http-client.service';
 import { environment } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
 
@@ -8,9 +7,9 @@ import { Observable, of } from 'rxjs';
 })
 export class RestApiService {
 
-  protected url: string;
+  public readonly url: string;
 
-  constructor(public http: HttpClientService/*, private alertService: AlertService*/) {
+  constructor(/*, private alertService: AlertService*/) {
     this.url = environment.restUrl;
   }
 
@@ -20,7 +19,7 @@ export class RestApiService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  protected handleError<T>( operation = 'operation', result?: T ) {
+  public handleError<T>( operation = 'operation', result?: T ) {
     return ( error: any ): Observable<T> => {
 
       const msg = `${operation} failed: ${error.message}`;
