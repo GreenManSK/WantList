@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -87,11 +88,19 @@ namespace WantList.Anidb
             if (startDateNode != null)
             {
                 var date = startDateNode.First().InnerText;
-                animeData.ReleaseDate = DateTime.ParseExact(date, "dd.MM.yyyy", null);
+                DateTime dateObj;
+                if (DateTime.TryParseExact(date, "dd.MM.yyyy", null, DateTimeStyles.None, out dateObj))
+                {
+                    animeData.ReleaseDate = dateObj;
+                }
             } else if (publishedDateNode != null)
             {
                 var date = publishedDateNode.First().InnerText;
-                animeData.ReleaseDate = DateTime.ParseExact(date, "dd.MM.yyyy", null);
+                DateTime dateObj;
+                if (DateTime.TryParseExact(date, "dd.MM.yyyy", null, DateTimeStyles.None, out dateObj))
+                {
+                    animeData.ReleaseDate = dateObj;
+                }
                 animeData.Type = AnimeType.Movie;
                 animeData.EpisodeCount = 1;
             }
