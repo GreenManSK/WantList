@@ -7,7 +7,7 @@ export class Manga {
   missingVolumes: string;
   completed: boolean;
 
-  public copyFrom( manga: Manga ): void {
-    Object.keys(manga).forEach(key => this[key] = manga[key]);
+  public static copyFrom( from: Manga, to: Manga ): void {
+    Object.keys(from).forEach(key => to[key] = from[key]);
   }
 }

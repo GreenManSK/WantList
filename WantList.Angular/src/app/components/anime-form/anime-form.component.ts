@@ -50,20 +50,20 @@ export class AnimeFormComponent implements OnInit, OnChanges {
       this.anime.wantRank = 7;
       this.anime.quality = Quality.p720;
     }
-    this.editedAnime.copyFrom(this.anime);
+    Anime.copyFrom(this.anime, this.editedAnime);
   }
 
   public onSubmit(): boolean {
     if (this.isAdd) {
-      this.animeService.add(this.editedAnime, () => this.onSuccess());
+      this.animeService.add(this.editedAnime, (a) => this.onSuccess(a));
     } else {
-      this.animeService.edit(this.editedAnime, () => this.onSuccess());
+      this.animeService.edit(this.editedAnime, (a) => this.onSuccess(a));
     }
     return false;
   }
 
-  public onSuccess(): void {
-    this.anime.copyFrom(this.editedAnime);
+  public onSuccess(anime: Anime): void {
+    Anime.copyFrom(anime, this.anime);
     this.close();
   }
 

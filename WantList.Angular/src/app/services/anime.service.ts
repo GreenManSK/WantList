@@ -26,23 +26,23 @@ export class AnimeService {
     return this.observable;
   }
 
-  public add( anime: Anime, onSuccess: () => void ): void {
+  public add( anime: Anime, onSuccess: (anime: Anime) => void ): void {
     this.animeApi.add(anime).subscribe(addedAnime => {
       if (addedAnime != null) {
         this.anime.push(addedAnime);
         this.updateAnime();
-        onSuccess();
+        onSuccess(addedAnime);
       }
     });
   }
 
-  public edit( anime: Anime, onSuccess: () => void ): void {
+  public edit( anime: Anime, onSuccess: (anime: Anime) => void ): void {
     this.animeApi.update(anime).subscribe(updatedAnime => {
       if (updatedAnime != null) {
         const index = this.anime.findIndex(a => a.id === updatedAnime.id);
         this.anime[index] = updatedAnime;
         this.updateAnime();
-        onSuccess();
+        onSuccess(updatedAnime);
       }
     });
   }

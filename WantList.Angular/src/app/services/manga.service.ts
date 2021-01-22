@@ -27,23 +27,23 @@ export class MangaService {
     return this.observable;
   }
 
-  public add( manga: Manga, onSuccess: () => void  ): void {
+  public add( manga: Manga, onSuccess: (manga: Manga) => void  ): void {
     this.mangaApi.add(manga).subscribe(addedmanga => {
       if (addedmanga != null) {
         this.manga.push(addedmanga);
         this.updateManga();
-        onSuccess();
+        onSuccess(addedmanga);
       }
     });
   }
 
-  public edit( manga: Manga, onSuccess: () => void  ): void {
+  public edit( manga: Manga, onSuccess: (manga: Manga) => void  ): void {
     this.mangaApi.update(manga).subscribe(updatedmanga => {
       if (updatedmanga != null) {
         const index = this.manga.findIndex(a => a.id === updatedmanga.id);
         this.manga[index] = updatedmanga;
         this.updateManga();
-        onSuccess();
+        onSuccess(updatedmanga);
       }
     });
   }

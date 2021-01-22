@@ -33,20 +33,20 @@ export class MangaFormComponent implements OnInit, OnChanges {
     if (this.isAdd) {
       this.manga.wantRank = 7;
     }
-    this.editedManga.copyFrom(this.manga);
+    Manga.copyFrom(this.manga, this.editedManga);
   }
 
   public onSubmit(): boolean {
     if (this.isAdd) {
-      this.mangaService.add(this.manga, () => this.onSuccess());
+      this.mangaService.add(this.editedManga, (m) => this.onSuccess(m));
     } else {
-      this.mangaService.edit(this.manga, () => this.onSuccess());
+      this.mangaService.edit(this.editedManga, (m) => this.onSuccess(m));
     }
     return false;
   }
 
-  public onSuccess(): void {
-    this.manga.copyFrom(this.editedManga);
+  public onSuccess(manga: Manga): void {
+    Manga.copyFrom(manga, this.manga);
     this.close();
   }
 

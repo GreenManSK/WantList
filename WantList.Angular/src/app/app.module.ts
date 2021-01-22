@@ -26,6 +26,7 @@ import { MangaStatsComponent } from './components/manga-stats/manga-stats.compon
 import { AnidbAnimeApiService } from './services/api/anidb-anime-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AnimeApiService } from './services/api/anime-api.service';
+import { MangaApiService } from './services/api/manga-api.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { AnimeApiService } from './services/api/anime-api.service';
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: IAnimeApi, useClass: AnimeApiService},
-    {provide: IMangaApi, useClass: MockMangaApiService},
+    {provide: IMangaApi, useClass: MangaApiService},
     {provide: IAnidbAnimeApi, useClass: AnidbAnimeApiService},
   ],
   bootstrap: [AppComponent]
