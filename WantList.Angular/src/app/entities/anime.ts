@@ -14,6 +14,7 @@ export class Anime {
   bluRay: boolean;
   quality: Quality;
   bluRayRelease: string;
+  deleted: boolean;
 
   public static copyFrom( from: Anime, to: Anime ): void {
     Object.keys(from).forEach(key => to[key] = from[key]);

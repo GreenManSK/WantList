@@ -13,6 +13,7 @@ export class MangaStatsComponent implements OnInit, OnChanges {
   public all = 0;
   public completed = 0;
   public running = 0;
+  public deleted = 0;
 
   constructor() {
   }
@@ -28,6 +29,10 @@ export class MangaStatsComponent implements OnInit, OnChanges {
 
   private computeStats(): void {
     for (const m of this.manga) {
+      if (m.deleted) {
+        this.deleted++;
+        continue;
+      }
       this.all++;
       if (m.completed) {
         this.completed++;

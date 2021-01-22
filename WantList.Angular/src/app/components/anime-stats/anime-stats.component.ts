@@ -17,6 +17,7 @@ export class AnimeStatsComponent implements OnInit, OnChanges {
   public p18s = 0;
   public ovas = 0;
   public redownload = 0;
+  public deleted = 0;
 
   constructor() {
   }
@@ -31,6 +32,10 @@ export class AnimeStatsComponent implements OnInit, OnChanges {
 
   private computeStats(): void {
     for (const a of this.anime) {
+      if (a.deleted) {
+        this.deleted++;
+        continue;
+      }
       if (a.redownload) {
         this.redownload++;
       } else {

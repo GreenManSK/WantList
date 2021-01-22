@@ -80,7 +80,7 @@ export class AnimeComponent implements OnInit {
   }
 
   public refilter(): void {
-    this.anime = this.filter.filter(this.clearAnime);
+    this.anime = this.filter.filter(this.clearAnime.filter(a => !a.deleted));
   }
 
   public closeForm(): void {

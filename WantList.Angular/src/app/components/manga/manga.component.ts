@@ -3,6 +3,7 @@ import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Manga } from '../../entities/manga';
 import { Column } from '../list-table/Column';
 import { MangaService } from '../../services/manga.service';
+import { Anime } from '../../entities/anime';
 
 @Component({
   selector: 'app-manga',
@@ -14,7 +15,9 @@ export class MangaComponent implements OnInit {
   public editIcon = faEdit;
   public deleteIcon = faTrash;
 
+  public clearManga: Manga[] = [];
   public manga: Manga[] = [];
+
   public columns = [
     new Column('image', '', false, 'image'),
     new Column('name', 'Title', true, 'left'),
@@ -32,7 +35,8 @@ export class MangaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mangaService.getManga().subscribe(manga => {
-      this.manga = manga;
+      this.clearManga = manga;
+      this.manga = manga.filter(m => !m.deleted);
     });
   }
 
