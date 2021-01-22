@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AnimeApiService } from './services/api/anime-api.service';
 import { MangaApiService } from './services/api/manga-api.service';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { KuronekoComponent } from './components/kuroneko/kuroneko.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     MangaTitleComponent,
     MangaFormComponent,
     MangaStatsComponent,
-    AlertsComponent
+    AlertsComponent,
+    KuronekoComponent
   ],
   imports: [
     BrowserModule,

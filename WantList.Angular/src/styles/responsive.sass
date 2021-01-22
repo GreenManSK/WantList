@@ -24,3 +24,35 @@
       width: 100%
       span
         display: none
+
+@media (min-width: 1300px)
+  #kuroneko
+    width: calc(50% - 550px)
+    height: 100%
+    max-height: 80%
+    max-width: 500px
+    position: fixed
+    bottom: 0
+    background: none
+    &.right
+      right: 0
+    &.left
+      left: 0
+    div
+      position: absolute
+      bottom: 0
+      width: 100%
+      background-size: contain
+      background-repeat: no-repeat
+      &.a
+        padding-bottom: 226.6%
+        background-image: url("../assets/a.jpg")
+      &.b
+        padding-bottom: 157.8%
+        background-image: url("../assets/b.jpg")
+      &.c
+        padding-bottom: 213.46%
+        background-image: url("../assets/c.jpg")
+      &.d
+        padding-bottom: 141.4%
+        background-image: url("../assets/d.jpg")
