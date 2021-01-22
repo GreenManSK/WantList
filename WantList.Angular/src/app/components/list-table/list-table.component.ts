@@ -52,7 +52,7 @@ export class ListTableComponent implements OnInit, OnChanges {
 
   private sortData(): void {
     this.data.sort(this.sorter.bind(this));
-    if (this.isAsc) {
+    if (!this.isAsc) {
       this.data.reverse();
     }
   }
