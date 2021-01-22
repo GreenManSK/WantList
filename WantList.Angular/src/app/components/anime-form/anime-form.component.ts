@@ -48,7 +48,7 @@ export class AnimeFormComponent implements OnInit, OnChanges {
     if (this.isAdd) {
       this.anime.type = AnimeType.Series;
       this.anime.wantRank = 7;
-      this.anime.quality = Quality.p720;
+      this.anime.quality = Quality.any;
     }
     Anime.copyFrom(this.anime, this.editedAnime);
   }
