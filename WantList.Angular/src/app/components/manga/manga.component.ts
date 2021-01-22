@@ -14,7 +14,7 @@ export class MangaComponent implements OnInit {
   public editIcon = faEdit;
   public deleteIcon = faTrash;
 
-  public manga: Manga[];
+  public manga: Manga[] = [];
   public columns = [
     new Column('image', '', false, 'image'),
     new Column('name', 'Title', true, 'left'),
