@@ -63,7 +63,7 @@ namespace WantList.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
         }
-        
+
         [HttpGet("file/{mangaUpdatesId}")]
         public ActionResult GetImage(int mangaUpdatesId)
         {
@@ -83,7 +83,7 @@ namespace WantList.Controllers
                 UpdateMangaData(mangaDto);
                 var manga = _mapper.Map<Manga>(mangaDto);
                 manga.AddedDateTime = DateTime.Now;
-                if (_mangaData.GetByMangaUpdatesId(manga.MangaUpdatesId) != null)
+                if (manga.MangaUpdatesId == null || _mangaData.GetByMangaUpdatesId(manga.MangaUpdatesId.Value) != null)
                 {
                     return BadRequest("Manga already exists");
                 }
@@ -115,9 +115,9 @@ namespace WantList.Controllers
                     return NotFound($"Could not find manga with id {mangaDto.Id}");
                 }
 
-                if (oldManga.MangaUpdatesId != mangaDto.MangaUpdatesId)
+                if (oldManga.MangaUpdatesId != null && oldManga.MangaUpdatesId != mangaDto.MangaUpdatesId)
                 {
-                    _mangaUpdatesService.DeleteImage(oldManga.MangaUpdatesId);
+                    _mangaUpdatesService.DeleteImage(oldManga.MangaUpdatesId.Value);
                     UpdateMangaData(mangaDto);
                 }
 
@@ -137,9 +137,21 @@ namespace WantList.Controllers
         {
             try
             {
-                var manga = _mangaData.Delete(id);
+                var manga = _mangaData.GetById(id);
+                if (manga == null)
+                {
+                    return NotFound($"Could not find manga with id {id}");
+                }
+
+                var oldMangaUpdatesId = manga.MangaUpdatesId;
+                manga.MangaUpdatesId = null;
+                manga.Deleted = true;
                 _mangaData.Commit();
-                _mangaUpdatesService.DeleteImage(manga.MangaUpdatesId);
+                if (oldMangaUpdatesId != null)
+                {
+                    _mangaUpdatesService.DeleteImage(oldMangaUpdatesId.Value);
+                }
+
                 return _mapper.Map<MangaDto>(manga);
             }
             catch (Exception e)

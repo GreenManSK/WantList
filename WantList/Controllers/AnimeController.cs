@@ -83,7 +83,7 @@ namespace WantList.Controllers
                 UpdateAnimeDto(animeDto);
                 var anime = _mapper.Map<Anime>(animeDto);
                 anime.AddedDateTime = DateTime.Now;
-                if (_animeData.GetByAnidbId(anime.AnidbId) != null)
+                if (anime.AnidbId == null || _animeData.GetByAnidbId(anime.AnidbId.Value) != null)
                 {
                     return BadRequest("Anime already exists");
                 }
@@ -114,9 +114,9 @@ namespace WantList.Controllers
                     return NotFound($"Could not find anime with id {animeDto.Id}");
                 }
 
-                if (oldAnime.AnidbId != animeDto.AnidbId)
+                if (oldAnime.AnidbId != animeDto.AnidbId && oldAnime.AnidbId != null)
                 {
-                    _anidbService.DeleteImage(oldAnime.AnidbId);
+                    _anidbService.DeleteImage(oldAnime.AnidbId.Value);
                     UpdateAnimeDto(animeDto);
                 }
                 
@@ -136,9 +136,21 @@ namespace WantList.Controllers
         {
             try
             {
-                var anime = _animeData.Delete(id);
+                var anime = _animeData.GetById(id);
+                if (anime == null)
+                {
+                    return NotFound($"Could not find anime with id {id}");
+                }
+
+                var oldAnidbId = anime.AnidbId;
+                anime.AnidbId = null;
+                anime.Deleted = true;
                 _animeData.Commit();
-                _anidbService.DeleteImage(anime.AnidbId);
+                if (oldAnidbId != null)
+                {
+                    _anidbService.DeleteImage(oldAnidbId.Value);
+                }
+
                 return _mapper.Map<AnimeDto>(anime);
             }
             catch (Exception e)

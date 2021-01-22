@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WantList.Data;
 
 namespace WantList.Data.Migrations
 {
     [DbContext(typeof(WantListDbContext))]
-    partial class WantListDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210122152656_NullableAnidbId")]
+    partial class NullableAnidbId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +53,6 @@ namespace WantList.Data.Migrations
 
                     b.Property<string>("BluRayRelease")
                         .HasColumnType("text");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("EpisodeCount")
                         .HasColumnType("int");
@@ -96,10 +95,7 @@ namespace WantList.Data.Migrations
                     b.Property<bool>("Completed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int?>("MangaUpdatesId")
+                    b.Property<int>("MangaUpdatesId")
                         .HasColumnType("int");
 
                     b.Property<string>("MissingVolumes")
