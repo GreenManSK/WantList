@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
   nyaaDomain: 'https://nyaa.si/',
-  restUrl: 'https://localhost:5001/api/'
+  restUrl: 'http://localhost:8090/api/',
+  suggestionLimit: 15,
+  suggestionPrefixLen: 1
 };
