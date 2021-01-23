@@ -22,6 +22,7 @@ export class ListTableComponent implements OnInit, OnChanges {
 
   public sortKey: string;
   public isAsc: boolean;
+  public renderData: any[];
 
   constructor() {
   }
@@ -32,10 +33,12 @@ export class ListTableComponent implements OnInit, OnChanges {
     }
     this.sortKey = this.defaultSortKey;
     this.isAsc = this.defaultIsAsc;
+    this.renderData = [...this.data];
     this.sortData();
   }
 
   ngOnChanges( changes: SimpleChanges ) {
+    this.renderData = [...this.data];
     this.sortData();
   }
 
@@ -51,9 +54,9 @@ export class ListTableComponent implements OnInit, OnChanges {
   }
 
   private sortData(): void {
-    this.data.sort(this.sorter.bind(this));
+    this.renderData.sort(this.sorter.bind(this));
     if (!this.isAsc) {
-      this.data.reverse();
+      this.renderData.reverse();
     }
   }
 

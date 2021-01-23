@@ -47,7 +47,7 @@
   <ng-template let-data>
     <ng-container [ngSwitch]="data.column.key">
       <ng-container *ngSwitchCase="'image'">
-        <img [alt]="data.item.name" [src]="animeService.getAnimeImage(data.item)">
+        <img [alt]="data.item.name" [src]="images[data.item.id]">
       </ng-container>
       <ng-container *ngSwitchCase="'type'">
         {{typeToString(data.item.type)}}
@@ -67,7 +67,7 @@
         </a>
       </ng-container>
       <ng-container *ngSwitchCase="'name'">
-        <app-anime-title  [id]="getAnimeId(data.item)" [anime]="data.item"></app-anime-title>
+        <app-anime-title  [id]="ids[data.item.id]" [anime]="data.item"></app-anime-title>
       </ng-container>
       <ng-container *ngSwitchDefault>
         {{data.item[data.column.key]}}

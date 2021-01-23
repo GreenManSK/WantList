@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AnidbAnimeService } from '../../services/anidb-anime.service';
-import { Quality } from '../../entities/quality.enum';
 import { Anime } from '../../entities/anime';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { NyaaServiceService } from '../../services/nyaa-service.service';
@@ -11,28 +10,24 @@ import { NyaaServiceService } from '../../services/nyaa-service.service';
   styleUrls: ['./anime-title.component.sass']
 })
 export class AnimeTitleComponent implements OnInit {
+  public readonly qualityString = ['720p', '1080p', 'Any'];
 
   @Input() anime: Anime;
 
   public redownloadIcon = faRetweet;
   public isOpen: boolean;
+  public anidbUrl: string;
+  public nyaaUrl: string;
+  public nyaaSearchText: string;
 
-  constructor( public anidbAnimeService: AnidbAnimeService, public nyaaServiceService: NyaaServiceService) {
+  constructor( private anidbAnimeService: AnidbAnimeService, private nyaaServiceService: NyaaServiceService ) {
   }
 
   ngOnInit(): void {
     this.isOpen = false;
-  }
-
-  public qualityString( quality: Quality ): string {
-    switch (quality) {
-      case Quality.p720:
-        return '720p';
-      case Quality.p1080:
-        return '1080p';
-      default:
-        return 'Any';
-    }
+    this.anidbUrl = this.anidbAnimeService.getUrl(this.anime.anidbId);
+    this.nyaaUrl = this.nyaaServiceService.getSearchUrl(this.anime);
+    this.nyaaSearchText = this.nyaaServiceService.generateSearchText(this.anime);
   }
 
   toggle(): boolean {

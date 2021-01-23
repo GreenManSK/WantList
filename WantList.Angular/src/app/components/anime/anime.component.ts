@@ -33,8 +33,10 @@ export class AnimeComponent implements OnInit {
   public activeAnime: Anime = new Anime();
 
   public clearAnime: Anime[] = [];
+  public images: string[] = [];
+  public ids: string[] = [];
 
-  constructor( public animeService: AnimeService ) {
+  constructor( private animeService: AnimeService ) {
     this.filter = new AnimeFilter();
   }
 
@@ -81,6 +83,16 @@ export class AnimeComponent implements OnInit {
 
   public refilter(): void {
     this.anime = this.filter.filter(this.clearAnime.filter(a => !a.deleted));
+    this.prepareData();
+  }
+
+  public prepareData(): void {
+    this.ids = [];
+    this.images = [];
+    for (const anime of this.anime) {
+      this.ids[anime.id] = this.getAnimeId(anime);
+      this.images[anime.id] = this.animeService.getAnimeImage(anime);
+    }
   }
 
   public closeForm(): void {
