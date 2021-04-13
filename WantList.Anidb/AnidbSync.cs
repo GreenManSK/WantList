@@ -99,6 +99,8 @@ namespace WantList.Anidb
             string content;
             using (var client = new WebClient())
             {
+                client.Headers["User-Agent"] =
+                    "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0";
                 client.DownloadFile(_anidbUrl, DataFile);
                 using var fs = new FileStream(DataFile, FileMode.Open, FileAccess.Read);
                 using var gzipStream = new GZipInputStream(fs);
