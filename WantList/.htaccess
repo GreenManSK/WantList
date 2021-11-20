@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /
+RewriteBase /wl/
 
 # prevents files starting with dot to be viewed by browser
 RewriteRule /\.|^\. - [F]
