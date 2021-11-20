@@ -20,6 +20,7 @@ namespace WantList
     public class Startup
     {
         public const string StaticImagesPath = "/static/images";
+        public const string BaseUrl = "/wl/";
         private const string ClientUrl = "";
         
         public IConfiguration Configuration { get; }
@@ -70,11 +71,22 @@ namespace WantList
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AnidbSync anidbSync)
         {
+            app.UsePathBase(BaseUrl);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("DevelopmentPolicy");
             }
+            
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/";
+                    await next();
+                }
+            });
 
             app.UseStaticFiles(new StaticFileOptions
             {
