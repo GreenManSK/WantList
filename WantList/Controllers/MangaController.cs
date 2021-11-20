@@ -67,7 +67,7 @@ namespace WantList.Controllers
         [HttpGet("file/{mangaUpdatesId}")]
         public ActionResult GetImage(int mangaUpdatesId)
         {
-            return Redirect(Path.Combine(Startup.StaticImagesPath, _mangaUpdatesService.GetImageName(mangaUpdatesId)));
+            return Redirect(Path.Combine(Startup.BaseUrl, Startup.StaticImagesPath, _mangaUpdatesService.GetImageName(mangaUpdatesId)));
         }
 
         [HttpPost]
