@@ -77,6 +77,16 @@ namespace WantList
                 app.UseDeveloperExceptionPage();
                 app.UseCors("DevelopmentPolicy");
             }
+            
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/";
+                    await next();
+                }
+            });
 
             app.UseStaticFiles(new StaticFileOptions
             {
