@@ -67,7 +67,7 @@ namespace WantList.Controllers
         [HttpGet("file/{anidbId}")]
         public ActionResult GetImage(int anidbId)
         {
-            return Redirect(Path.Combine(Startup.BaseUrl, Startup.StaticImagesPath, _anidbService.GetImageName(anidbId)));
+            return Redirect($"{Startup.BaseUrl}{Path.Combine(Startup.StaticImagesPath, _anidbService.GetImageName(anidbId))}");
         }
 
         [HttpPost]
