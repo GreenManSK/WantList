@@ -5,8 +5,8 @@ import { MangaComponent } from './components/manga/manga.component';
 
 
 const routes: Routes = [
-  { path: '', component: AnimeComponent },
-  { path: 'manga', component: MangaComponent }
+  { path: 'wl', component: AnimeComponent },
+  { path: 'wl/manga', component: MangaComponent }
 ];
 
 @NgModule({
