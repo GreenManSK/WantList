@@ -1,7 +1,7 @@
 export class Manga {
   id: number;
   name: string;
-  mangaUpdatesId: number;
+  mangaUpdatesId: string;
   addedDateTime: Date;
   wantRank: number;
   missingVolumes: string;

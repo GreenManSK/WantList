@@ -78,7 +78,7 @@ export class MangaApiService extends IMangaApi {
     return `${this.getBaseUrl()}` + (id !== 0 ? `/${id}` : '');
   }
 
-  private getImageUrl( mangaUpdatesId: number ): string {
+  private getImageUrl( mangaUpdatesId: string ): string {
     return `${this.getBaseUrl()}/file/` + mangaUpdatesId;
   }
 }

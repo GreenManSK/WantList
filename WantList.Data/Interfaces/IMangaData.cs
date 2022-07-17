@@ -7,7 +7,7 @@ namespace WantList.Data.Interfaces
     {
         IEnumerable<Manga> GetAll();
         Manga GetById(int id);
-        Manga GetByMangaUpdatesId(int mangaUpdatesId);
+        Manga GetByMangaUpdatesId(string mangaUpdatesId);
         Manga Add(Manga manga);
         Manga Update(Manga manga);
         Manga Delete(int id);

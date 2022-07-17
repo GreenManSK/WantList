@@ -7,7 +7,7 @@ export class MangaUpdatesService {
 
   constructor() { }
 
-  public getUrl(id: number): string {
+  public getUrl(id: string): string {
     return `https://www.mangaupdates.com/series.html?id=${id}`;
   }
 }

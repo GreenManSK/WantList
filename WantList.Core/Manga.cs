@@ -6,7 +6,7 @@ namespace WantList.Core
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int? MangaUpdatesId { get; set; }
+        public string MangaUpdatesId { get; set; }
         public DateTime AddedDateTime { get; set; }
         public int WantRank { get; set; }
         public string MissingVolumes { get; set; }

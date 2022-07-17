@@ -4,10 +4,10 @@ namespace WantList.MangaUpdates
 {
     public interface IMangaUpdatesService
     {
-        string GetImageName(int mangaUpdatesId);
-        string GetImagePath(int mangaUpdatesId);
+        string GetImageName(string mangaUpdatesId);
+        string GetImagePath(string mangaUpdatesId);
         void DownloadImage(Manga manga);
-        void DeleteImage(int mangaUpdatesId);
-        Manga GetData(int mangaUpdatesId);
+        void DeleteImage(string mangaUpdatesId);
+        Manga GetData(string mangaUpdatesId);
     }
 }

@@ -28,12 +28,12 @@ namespace WantList.MangaUpdates
             _imagesPath = configuration.GetValue<string>("ImagesPath");
         }
 
-        public string GetImageName(int mangaUpdatesId)
+        public string GetImageName(string mangaUpdatesId)
         {
             return $"m{mangaUpdatesId}.jpg";
         }
 
-        public string GetImagePath(int mangaUpdatesId)
+        public string GetImagePath(string mangaUpdatesId)
         {
             return Path.Combine(_imagesPath, GetImageName(mangaUpdatesId));
         }
@@ -52,7 +52,7 @@ namespace WantList.MangaUpdates
             client.DownloadFile(manga.ImageUrl, imagePath);
         }
 
-        public void DeleteImage(int mangaUpdatesId)
+        public void DeleteImage(string mangaUpdatesId)
         {
             var path = GetImagePath(mangaUpdatesId);
             if (File.Exists(path))
@@ -62,7 +62,7 @@ namespace WantList.MangaUpdates
             }
         }
 
-        public Manga GetData(int mangaUpdatesId)
+        public Manga GetData(string mangaUpdatesId)
         {
             var manga = new Manga();
             manga.Id = mangaUpdatesId;
@@ -94,7 +94,7 @@ namespace WantList.MangaUpdates
             return manga;
         }
 
-        private async Task<string> GetHtml(int mangaUpdatesId)
+        private async Task<string> GetHtml(string mangaUpdatesId)
         {
             var url = GetUrl(mangaUpdatesId);
             var client = new HttpClient();
@@ -109,7 +109,7 @@ namespace WantList.MangaUpdates
             return await client.GetStringAsync(url);
         }
 
-        private string GetUrl(in int mangaUpdatesId)
+        private string GetUrl(in string mangaUpdatesId)
         {
             return $"https://www.mangaupdates.com/series.html?id={mangaUpdatesId}";
         }

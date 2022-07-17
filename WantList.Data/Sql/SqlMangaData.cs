@@ -25,7 +25,7 @@ namespace WantList.Data.Sql
             return _db.Mangas.Find(id);
         }
 
-        public Manga GetByMangaUpdatesId(int mangaUpdatesId)
+        public Manga GetByMangaUpdatesId(string mangaUpdatesId)
         {
             return (from m in _db.Mangas where m.MangaUpdatesId.Equals(mangaUpdatesId) select m).FirstOrDefault();
         }

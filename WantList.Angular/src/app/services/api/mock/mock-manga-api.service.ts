@@ -21,7 +21,7 @@ export class MockMangaApiService implements IMangaApi {
     const manga = new Manga();
     manga.id = this.randomNum(1, 1000);
     manga.name = this.randomNum(1000000000, 99999999999).toString();
-    manga.mangaUpdatesId = this.randomNum(1, 1000);
+    manga.mangaUpdatesId = this.randomNum(1, 1000).toString();
     manga.addedDateTime = this.randomDate(new Date(1, 1, 1980), new Date());
     manga.wantRank = this.randomNum(1, 10);
     manga.completed = this.randomNum(1, 100) % 2 === 0;

@@ -18,6 +18,7 @@ namespace WantList.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Anime>().HasIndex(a => a.AnidbId).IsUnique();
+            modelBuilder.Entity<Manga>(entity => entity.Property(m => m.MangaUpdatesId).HasMaxLength(200));
             modelBuilder.Entity<Manga>().HasIndex(m => m.MangaUpdatesId).IsUnique();
         }
     }
