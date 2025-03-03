@@ -25,7 +25,6 @@ namespace WantList.MangaUpdates
         public MangaUpdatesService(ILogger<MangaUpdatesService> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _imagesPath = configuration["ImagesPath"];
         }
 
         public string GetImageName(string mangaUpdatesId)

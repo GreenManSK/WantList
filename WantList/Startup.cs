@@ -92,12 +92,6 @@ namespace WantList
                 }
             });
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Configuration.GetValue<string>("ImagesPath")),
-                RequestPath = StaticImagesPath
-            });
-
             app.UseDefaultFiles(GetDefaultFileOptions());
             app.UseStaticFiles(new StaticFileOptions
             {

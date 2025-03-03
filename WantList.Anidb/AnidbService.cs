@@ -25,7 +25,6 @@ namespace WantList.Anidb
         public AnidbService(ILogger<AnidbService> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _imagesPath = configuration["ImagesPath"];
         }
 
         public string GetImageName(int anidbId)
