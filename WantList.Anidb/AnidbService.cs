@@ -25,7 +25,7 @@ namespace WantList.Anidb
         public AnidbService(ILogger<AnidbService> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _imagesPath = configuration.GetValue<string>("ImagesPath");
+            _imagesPath = configuration["ImagesPath"];
         }
 
         public string GetImageName(int anidbId)
@@ -46,7 +46,7 @@ namespace WantList.Anidb
                 _logger.LogError($"Image for anidb {animeData.Id} already exists in {imagePath}");
                 return;
             }
-            
+
             var imageUrl = animeData.ImageUrl;
             _logger.LogInformation($"Downloading file {imageUrl} to {imagePath} for anidb {animeData.Id}");
             using var client = new WebClient();
@@ -71,7 +71,7 @@ namespace WantList.Anidb
             var html = GetAnimeHtml(anidbId).Result;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
-            
+
             var imageNode = htmlDoc.DocumentNode.Descendants("img").FirstOrDefault();
             var episodeCountNode = htmlDoc.DocumentNode.SelectNodes(EpisodeCountSelector);
             var startDateNode = htmlDoc.DocumentNode.SelectNodes(StartDateSelector);
@@ -93,7 +93,8 @@ namespace WantList.Anidb
                 {
                     animeData.ReleaseDate = dateObj;
                 }
-            } else if (publishedDateNode != null)
+            }
+            else if (publishedDateNode != null)
             {
                 var date = publishedDateNode.First().InnerText;
                 DateTime dateObj;
@@ -119,7 +120,7 @@ namespace WantList.Anidb
             {
                 return AnimeType.Movie;
             }
-            
+
             return AnimeType.OVA;
         }
 

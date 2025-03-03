@@ -31,8 +31,8 @@ namespace WantList.Anidb
             _settingsData = settingsData;
             _anidbAnimeData = anidbAnimeData;
             var anidbConfig = configuration.GetSection("Anidb");
-            _intervalInDays = anidbConfig.GetValue<int>("IntervalInDays");
-            _anidbUrl = anidbConfig.GetValue<string>("Url");
+            _intervalInDays = anidbConfig["IntervalInDays"] != null ? int.Parse(anidbConfig["IntervalInDays"]) : 7;
+            _anidbUrl = anidbConfig["Url"];
         }
 
         public void OnStartup()
@@ -117,18 +117,18 @@ namespace WantList.Anidb
         {
             var xml = XDocument.Parse(data);
             return from a in xml.Root.Descendants("anime")
-                select new Anime(
-                    (int) a.Attribute("aid"),
-                    (from title in a.Descendants("title")
+                   select new Anime(
+                       (int)a.Attribute("aid"),
+                       (from title in a.Descendants("title")
                         let lang = title.Attribute(_languageAttrName)?.Value
                         let type = title.Attribute("type")?.Value
                         where lang != null && lang.Equals("en") && type != null && type.Equals("official")
                         select title.Value).FirstOrDefault() ?? "",
-                    (from title in a.Descendants("title")
+                       (from title in a.Descendants("title")
                         let val = title.Attribute("type")?.Value
                         where val != null && val.Equals("main")
                         select title.Value).FirstOrDefault() ?? ""
-                );
+                   );
         }
 
         private bool ShouldUpdate()
