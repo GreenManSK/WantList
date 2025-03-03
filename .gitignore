@@ -264,3 +264,9 @@ IISBuild/*
 IISBuild/
 */bin/*
 */obj/*
+
+# Ignore Visual Studio Code
+*/.DS_Store
+*/.vscode/*
+.DS_Store
+.vscode/*
