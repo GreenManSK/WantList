@@ -64,10 +64,23 @@ namespace WantList.Controllers
             }
         }
 
-        [HttpGet("file/{mangaUpdatesId}")]
-        public ActionResult GetImage(string mangaUpdatesId)
+        [HttpGet("file/{id}")]
+        public ActionResult GetImage(int id)
         {
-            return Redirect(Path.Combine(Startup.StaticImagesPath, _mangaUpdatesService.GetImageName(mangaUpdatesId)));
+            var manga = _mangaData.GetById(id);
+
+            if (manga == null)
+            {
+                return NotFound("Image not found.");
+            }
+
+            if (manga.Image == null || manga.Image.Length == 0)
+            {
+                PopulateMangaImage(manga);
+                _mangaData.Commit();
+            }
+
+            return File(manga.Image, "image/jpeg");
         }
 
         [HttpPost]
@@ -80,8 +93,9 @@ namespace WantList.Controllers
 
             try
             {
-                UpdateMangaData(mangaDto);
+                var mangaData = UpdateMangaData(mangaDto);
                 var manga = _mapper.Map<Manga>(mangaDto);
+                PopulateMangaImage(manga, mangaData);
                 manga.AddedDateTime = DateTime.Now;
                 if (manga.MangaUpdatesId == null || _mangaData.GetByMangaUpdatesId(manga.MangaUpdatesId) != null)
                 {
@@ -117,8 +131,8 @@ namespace WantList.Controllers
 
                 if (oldManga.MangaUpdatesId != null && oldManga.MangaUpdatesId != mangaDto.MangaUpdatesId)
                 {
-                    _mangaUpdatesService.DeleteImage(oldManga.MangaUpdatesId);
-                    UpdateMangaData(mangaDto);
+                    var mangaData = UpdateMangaData(mangaDto);
+                    PopulateMangaImage(oldManga, mangaData);
                 }
 
                 _mapper.Map(mangaDto, oldManga);
@@ -147,10 +161,6 @@ namespace WantList.Controllers
                 manga.MangaUpdatesId = null;
                 manga.Deleted = true;
                 _mangaData.Commit();
-                if (oldMangaUpdatesId != null)
-                {
-                    _mangaUpdatesService.DeleteImage(oldMangaUpdatesId);
-                }
 
                 return _mapper.Map<MangaDto>(manga);
             }
@@ -161,7 +171,7 @@ namespace WantList.Controllers
             }
         }
 
-        private void UpdateMangaData(MangaDto mangaDto)
+        private MangaUpdates.Data.Manga UpdateMangaData(MangaDto mangaDto)
         {
             var data = _mangaUpdatesService.GetData(mangaDto.MangaUpdatesId);
             if (string.IsNullOrWhiteSpace(mangaDto.Name))
@@ -171,7 +181,16 @@ namespace WantList.Controllers
 
             mangaDto.MissingVolumes ??= data.Volumes.ToString();
             mangaDto.Completed = data.Completed;
-            _mangaUpdatesService.DownloadImage(data);
+            return data;
+        }
+
+        private void PopulateMangaImage(Manga manga, MangaUpdates.Data.Manga mangaData = null)
+        {
+            if (mangaData == null)
+            {
+                mangaData = _mangaUpdatesService.GetData(manga.MangaUpdatesId);
+            }
+            manga.Image = _mangaUpdatesService.DownloadImage(mangaData);
         }
     }
 }
