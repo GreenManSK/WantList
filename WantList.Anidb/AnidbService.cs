@@ -38,29 +38,13 @@ namespace WantList.Anidb
             return Path.Combine(_imagesPath, GetImageName(anidbId));
         }
 
-        public void DownloadImage(AnimeData animeData)
+        public byte[] DownloadImage(AnimeData animeData)
         {
-            var imagePath = GetImagePath(animeData.Id);
-            if (File.Exists(imagePath))
-            {
-                _logger.LogError($"Image for anidb {animeData.Id} already exists in {imagePath}");
-                return;
-            }
-
             var imageUrl = animeData.ImageUrl;
-            _logger.LogInformation($"Downloading file {imageUrl} to {imagePath} for anidb {animeData.Id}");
+            _logger.LogInformation($"Downloading file {imageUrl} for anidb {animeData.Id}");
             using var client = new WebClient();
-            client.DownloadFile(imageUrl, imagePath);
-        }
-
-        public void DeleteImage(int anidbId)
-        {
-            var path = GetImagePath(anidbId);
-            if (File.Exists(path))
-            {
-                _logger.LogInformation($"Deleting {path}");
-                File.Delete(path);
-            }
+            var imageData = client.DownloadData(imageUrl);
+            return imageData;
         }
 
         public AnimeData GetData(int anidbId)

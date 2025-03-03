@@ -17,5 +17,6 @@ namespace WantList.Core
         public Quality Quality { get; set; }
         public string BluRayRelease { get; set; }
         public bool Deleted { get; set; }
+        public byte[] Image { get; set; }
     }
 }

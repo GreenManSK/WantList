@@ -36,7 +36,7 @@ export class AnimeApiService extends IAnimeApi {
   }
 
   getAnimeImage( anime: Anime ): string {
-    return this.getImageUrl(anime.anidbId);
+    return this.getImageUrl(anime.id);
   }
 
   add( anime: Anime ): Observable<Anime> {
