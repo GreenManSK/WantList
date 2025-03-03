@@ -270,3 +270,7 @@ IISBuild/
 */.vscode/*
 .DS_Store
 .vscode/*
+
+# Database
+*.db
+*.db-*
