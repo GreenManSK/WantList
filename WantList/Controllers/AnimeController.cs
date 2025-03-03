@@ -63,11 +63,26 @@ namespace WantList.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
         }
-        
-        [HttpGet("file/{anidbId}")]
-        public ActionResult GetImage(int anidbId)
+
+        [HttpGet("file/{id}")]
+        public IActionResult GetImage(int id)
         {
-            return Redirect(Path.Combine(Startup.StaticImagesPath, _anidbService.GetImageName(anidbId)));
+            // Retrieve the anime record from the database using the provided ID
+            var anime = _animeData.GetById(id);
+
+            if (anime == null)
+            {
+                return NotFound("Image not found.");
+            }
+
+            if (anime.Image == null || anime.Image.Length == 0)
+            {
+                PopulateAnimeImage(anime);
+                _animeData.Commit();
+            }
+
+            // Return the image data with the appropriate content type
+            return File(anime.Image, "image/jpeg");
         }
 
         [HttpPost]
@@ -80,8 +95,9 @@ namespace WantList.Controllers
 
             try
             {
-                UpdateAnimeDto(animeDto);
+                var animeData = UpdateAnimeDto(animeDto);
                 var anime = _mapper.Map<Anime>(animeDto);
+                PopulateAnimeImage(anime, animeData);
                 anime.AddedDateTime = DateTime.Now;
                 if (anime.AnidbId == null || _animeData.GetByAnidbId(anime.AnidbId.Value) != null)
                 {
@@ -116,10 +132,10 @@ namespace WantList.Controllers
 
                 if (oldAnime.AnidbId != animeDto.AnidbId && oldAnime.AnidbId != null)
                 {
-                    _anidbService.DeleteImage(oldAnime.AnidbId.Value);
-                    UpdateAnimeDto(animeDto);
+                    var animeData = UpdateAnimeDto(animeDto);
+                    PopulateAnimeImage(oldAnime, animeData);
                 }
-                
+
                 _mapper.Map(animeDto, oldAnime);
                 _animeData.Commit();
                 return _mapper.Map<AnimeDto>(oldAnime);
@@ -146,10 +162,6 @@ namespace WantList.Controllers
                 anime.AnidbId = null;
                 anime.Deleted = true;
                 _animeData.Commit();
-                if (oldAnidbId != null)
-                {
-                    _anidbService.DeleteImage(oldAnidbId.Value);
-                }
 
                 return _mapper.Map<AnimeDto>(anime);
             }
@@ -160,7 +172,7 @@ namespace WantList.Controllers
             }
         }
 
-        private void UpdateAnimeDto(AnimeDto animeDto)
+        private Anidb.Data.AnimeData UpdateAnimeDto(AnimeDto animeDto)
         {
             var data = _anidbService.GetData(animeDto.AnidbId);
             if (animeDto.EpisodeCount == 0)
@@ -177,7 +189,17 @@ namespace WantList.Controllers
             {
                 animeDto.ReleaseDate = data.ReleaseDate.Value;
             }
-            _anidbService.DownloadImage(data);
+
+            return data;
+        }
+
+        private void PopulateAnimeImage(Anime anime, Anidb.Data.AnimeData animeData = null)
+        {
+            if (animeData == null)
+            {
+                animeData = _anidbService.GetData(anime.AnidbId.Value);
+            }
+            anime.Image = _anidbService.DownloadImage(animeData);
         }
     }
 }

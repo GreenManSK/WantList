@@ -37,7 +37,7 @@ export class MangaApiService extends IMangaApi {
   }
 
   getImage( manga: Manga ): string {
-    return this.getImageUrl(manga.mangaUpdatesId);
+    return this.getImageUrl(manga.id);
   }
 
   add( manga: Manga ): Observable<Manga> {
@@ -78,7 +78,7 @@ export class MangaApiService extends IMangaApi {
     return `${this.getBaseUrl()}` + (id !== 0 ? `/${id}` : '');
   }
 
-  private getImageUrl( mangaUpdatesId: string ): string {
+  private getImageUrl( mangaUpdatesId: number ): string {
     return `${this.getBaseUrl()}/file/` + mangaUpdatesId;
   }
 }

@@ -6,8 +6,7 @@ namespace WantList.MangaUpdates
     {
         string GetImageName(string mangaUpdatesId);
         string GetImagePath(string mangaUpdatesId);
-        void DownloadImage(Manga manga);
-        void DeleteImage(string mangaUpdatesId);
+        byte[] DownloadImage(Manga manga);
         Manga GetData(string mangaUpdatesId);
     }
 }

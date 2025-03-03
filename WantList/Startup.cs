@@ -21,7 +21,7 @@ namespace WantList
     {
         public const string StaticImagesPath = "/static/images";
         private const string ClientUrl = "";
-        
+
         public IConfiguration Configuration { get; }
         private IWebHostEnvironment _environment;
 
@@ -43,7 +43,7 @@ namespace WantList
                         .AllowAnyHeader();
                 }));
             }
-            
+
             services.AddDbContextPool<WantListDbContext>(options =>
             {
                 if (_environment.IsDevelopment() && Configuration.GetValue<bool>("LogQueries"))
@@ -51,7 +51,7 @@ namespace WantList
                     options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
                 }
 
-                options.UseMySQL(Configuration.GetConnectionString("WantlistDb"));
+                options.UseSqlite(Configuration.GetConnectionString("WantlistDb"));
             });
 
             services.AddScoped<IAnidbAnimeData, SqlAnidbAnimeData>();
@@ -75,7 +75,13 @@ namespace WantList
                 app.UseDeveloperExceptionPage();
                 app.UseCors("DevelopmentPolicy");
             }
-            
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<WantListDbContext>();
+                context.Database.EnsureCreated();
+            }
+
             app.Use(async (context, next) =>
             {
                 await next();
@@ -84,12 +90,6 @@ namespace WantList
                     context.Request.Path = "/";
                     await next();
                 }
-            });
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Configuration.GetValue<string>("ImagesPath")),
-                RequestPath = StaticImagesPath
             });
 
             app.UseDefaultFiles(GetDefaultFileOptions());

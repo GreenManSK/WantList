@@ -25,7 +25,6 @@ namespace WantList.MangaUpdates
         public MangaUpdatesService(ILogger<MangaUpdatesService> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _imagesPath = configuration.GetValue<string>("ImagesPath");
         }
 
         public string GetImageName(string mangaUpdatesId)
@@ -38,29 +37,15 @@ namespace WantList.MangaUpdates
             return Path.Combine(_imagesPath, GetImageName(mangaUpdatesId));
         }
 
-        public void DownloadImage(Manga manga)
+        public byte[] DownloadImage(Manga manga)
         {
-            var imagePath = GetImagePath(manga.Id);
-            if (File.Exists(imagePath))
-            {
-                _logger.LogError($"Image for manga {manga.Id} already exists in {imagePath}");
-                return;
-            }
-
-            _logger.LogInformation($"Downloading file {manga.ImageUrl} to {imagePath} for manga {manga.Id}");
+            var imageUrl = manga.ImageUrl;
+            _logger.LogInformation($"Downloading file {imageUrl} for manga {manga.Id}");
             using var client = new WebClient();
-            client.DownloadFile(manga.ImageUrl, imagePath);
+            var imageData = client.DownloadData(imageUrl);
+            return imageData;
         }
 
-        public void DeleteImage(string mangaUpdatesId)
-        {
-            var path = GetImagePath(mangaUpdatesId);
-            if (File.Exists(path))
-            {
-                _logger.LogInformation($"Deleting {path}");
-                File.Delete(path);
-            }
-        }
 
         public Manga GetData(string mangaUpdatesId)
         {

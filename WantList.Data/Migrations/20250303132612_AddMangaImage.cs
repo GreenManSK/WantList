@@ -1,22 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace WantList.Data.Migrations
 {
-    public partial class DeletedFieldManga : Migration
+    /// <inheritdoc />
+    public partial class AddMangaImage : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "Deleted",
+            migrationBuilder.AddColumn<byte[]>(
+                name: "Image",
                 table: "Mangas",
-                nullable: false,
-                defaultValue: false);
+                type: "BLOB",
+                nullable: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Deleted",
+                name: "Image",
                 table: "Mangas");
         }
     }

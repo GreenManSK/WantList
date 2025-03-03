@@ -25,7 +25,6 @@ namespace WantList.Anidb
         public AnidbService(ILogger<AnidbService> logger, IConfiguration configuration)
         {
             _logger = logger;
-            _imagesPath = configuration.GetValue<string>("ImagesPath");
         }
 
         public string GetImageName(int anidbId)
@@ -38,29 +37,13 @@ namespace WantList.Anidb
             return Path.Combine(_imagesPath, GetImageName(anidbId));
         }
 
-        public void DownloadImage(AnimeData animeData)
+        public byte[] DownloadImage(AnimeData animeData)
         {
-            var imagePath = GetImagePath(animeData.Id);
-            if (File.Exists(imagePath))
-            {
-                _logger.LogError($"Image for anidb {animeData.Id} already exists in {imagePath}");
-                return;
-            }
-            
             var imageUrl = animeData.ImageUrl;
-            _logger.LogInformation($"Downloading file {imageUrl} to {imagePath} for anidb {animeData.Id}");
+            _logger.LogInformation($"Downloading file {imageUrl} for anidb {animeData.Id}");
             using var client = new WebClient();
-            client.DownloadFile(imageUrl, imagePath);
-        }
-
-        public void DeleteImage(int anidbId)
-        {
-            var path = GetImagePath(anidbId);
-            if (File.Exists(path))
-            {
-                _logger.LogInformation($"Deleting {path}");
-                File.Delete(path);
-            }
+            var imageData = client.DownloadData(imageUrl);
+            return imageData;
         }
 
         public AnimeData GetData(int anidbId)
@@ -71,7 +54,7 @@ namespace WantList.Anidb
             var html = GetAnimeHtml(anidbId).Result;
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
-            
+
             var imageNode = htmlDoc.DocumentNode.Descendants("img").FirstOrDefault();
             var episodeCountNode = htmlDoc.DocumentNode.SelectNodes(EpisodeCountSelector);
             var startDateNode = htmlDoc.DocumentNode.SelectNodes(StartDateSelector);
@@ -93,7 +76,8 @@ namespace WantList.Anidb
                 {
                     animeData.ReleaseDate = dateObj;
                 }
-            } else if (publishedDateNode != null)
+            }
+            else if (publishedDateNode != null)
             {
                 var date = publishedDateNode.First().InnerText;
                 DateTime dateObj;
@@ -119,7 +103,7 @@ namespace WantList.Anidb
             {
                 return AnimeType.Movie;
             }
-            
+
             return AnimeType.OVA;
         }
 
