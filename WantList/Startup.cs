@@ -99,7 +99,7 @@ namespace WantList
                 RequestPath = ClientUrl
             });
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
