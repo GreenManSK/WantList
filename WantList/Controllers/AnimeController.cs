@@ -70,16 +70,16 @@ namespace WantList.Controllers
             // Retrieve the anime record from the database using the provided ID
             var anime = _animeData.GetById(id);
 
-            if (anime == null)
+            if (anime == null || anime.Image == null || anime.Image.Length == 0)
             {
                 return NotFound("Image not found.");
             }
 
-            if (anime.Image == null || anime.Image.Length == 0)
-            {
-                PopulateAnimeImage(anime);
-                _animeData.Commit();
-            }
+            // if (anime.Image == null || anime.Image.Length == 0)
+            // {
+            //     PopulateAnimeImage(anime);
+            //     _animeData.Commit();
+            // }
 
             // Return the image data with the appropriate content type
             return File(anime.Image, "image/jpeg");
@@ -97,7 +97,10 @@ namespace WantList.Controllers
             {
                 var animeData = UpdateAnimeDto(animeDto);
                 var anime = _mapper.Map<Anime>(animeDto);
-                PopulateAnimeImage(anime, animeData);
+                if (animeData != null)
+                {
+                    PopulateAnimeImage(anime, animeData);
+                }
                 anime.AddedDateTime = DateTime.Now;
                 if (anime.AnidbId == null || _animeData.GetByAnidbId(anime.AnidbId.Value) != null)
                 {
@@ -133,7 +136,10 @@ namespace WantList.Controllers
                 if (oldAnime.AnidbId != animeDto.AnidbId && oldAnime.AnidbId != null)
                 {
                     var animeData = UpdateAnimeDto(animeDto);
-                    PopulateAnimeImage(oldAnime, animeData);
+                    if (animeData != null)
+                    {
+                        PopulateAnimeImage(oldAnime, animeData);
+                    }
                 }
 
                 _mapper.Map(animeDto, oldAnime);
@@ -174,23 +180,31 @@ namespace WantList.Controllers
 
         private Anidb.Data.AnimeData UpdateAnimeDto(AnimeDto animeDto)
         {
-            var data = _anidbService.GetData(animeDto.AnidbId);
-            if (animeDto.EpisodeCount == 0)
+            try
             {
-                animeDto.EpisodeCount = data.EpisodeCount;
-            }
+                var data = _anidbService.GetData(animeDto.AnidbId);
+                if (animeDto.EpisodeCount == 0)
+                {
+                    animeDto.EpisodeCount = data.EpisodeCount;
+                }
 
-            if (animeDto.Type == AnimeType.Series && data.Type != null)
+                if (animeDto.Type == AnimeType.Series && data.Type != null)
+                {
+                    animeDto.Type = data.Type.Value;
+                }
+
+                if (data.ReleaseDate != null)
+                {
+                    animeDto.ReleaseDate = data.ReleaseDate.Value;
+                }
+
+                return data;
+            }
+            catch (Exception e)
             {
-                animeDto.Type = data.Type.Value;
+                _logger.LogWarning(e, "AniDB enrichment failed for AniDB id {anidbId}. Continuing with provided anime DTO values.", animeDto.AnidbId);
+                return null;
             }
-
-            if (data.ReleaseDate != null)
-            {
-                animeDto.ReleaseDate = data.ReleaseDate.Value;
-            }
-
-            return data;
         }
 
         private void PopulateAnimeImage(Anime anime, Anidb.Data.AnimeData animeData = null)
